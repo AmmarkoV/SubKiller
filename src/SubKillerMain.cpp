@@ -201,6 +201,16 @@ SubKillerFrame::SubKillerFrame(wxWindow* parent,wxWindowID id)
     GLCanvas1->SetCurrent();
     prepare3DViewport(getWidth()/2,0,getWidth(), getHeight());
 
+
+       GLCanvas1->SetFocus();
+
+       Connect(this->GetId(),wxEVT_MOTION,wxMouseEventHandler(SubKillerFrame::mouseMoved));
+       GLCanvas1->Connect(wxEVT_MOTION,wxMouseEventHandler(SubKillerFrame::mouseMoved));
+
+       this->Connect( wxEVT_KEY_DOWN, wxKeyEventHandler(SubKillerFrame::keyPressed));
+       GLCanvas1->Connect( wxEVT_KEY_DOWN, wxKeyEventHandler(SubKillerFrame::keyPressed));
+
+
      if (!init_textures)
       {
 
@@ -226,30 +236,18 @@ SubKillerFrame::SubKillerFrame(wxWindow* parent,wxWindowID id)
        sprintf(filename,"%s/seadrop.wav",base_directory);
        AddSoundBufferForLoad((char *)filename); //SLIDESHOW_START
 
-       sprintf(filename,"%s/slideshow_stop.wav",base_directory);
+       sprintf(filename,"%s/explosion.wav",base_directory);
        AddSoundBufferForLoad((char *)filename); //SLIDESHOW_STOP
 
        LoadSoundBuffers();
 
 
+       SoundLibrary_PlaySound(0);
       /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
 
 
       }
 
-       GLCanvas1->SetFocus();
-
-       Connect(this->GetId(),wxEVT_MOTION,wxMouseEventHandler(SubKillerFrame::mouseMoved));
-       GLCanvas1->Connect(wxEVT_MOTION,wxMouseEventHandler(SubKillerFrame::mouseMoved));
-
-       this->Connect( wxEVT_KEY_DOWN, wxKeyEventHandler(SubKillerFrame::keyPressed));
-       GLCanvas1->Connect( wxEVT_KEY_DOWN, wxKeyEventHandler(SubKillerFrame::keyPressed));
-
- //   this->Connect( wxEVT_KEY_DOWN, wxKeyEventHandler( SubKillerFrame::keyPressed ) );
-
-   // this->Connect(wxEVT_KEY_DOWN, wxKeyEventHandler(SubKillerFrame::keyPressed), NULL, this);
-//    Connect(-1,wxEVT_KEY_DOWN, wxKeyEventHandler(SubKillerFrame::keyPressed));
-//    Connect(-1,wxEVT_KEY_UP,   wxKeyEventHandler(SubKillerFrame::keyReleased));
 
 }
 
@@ -278,11 +276,13 @@ void SubKillerFrame::keyPressed(wxKeyEvent& event)
 }
 void SubKillerFrame::keyReleased(wxKeyEvent& event)
 {
-   SoundLibrary_PlaySound(0);
+
    fprintf(stderr,"*");
    int key=event.GetKeyCode();
-   if (key==WXK_LEFT) { x-=2; } else
-   if (key==WXK_RIGHT) { x+=2; }
+   if (key==WXK_LEFT)  { x-=2; } else
+   if (key==WXK_RIGHT) { x+=2; } else
+   if (key=='1') {    SoundLibrary_PlaySound(2); } else
+   if (key=='3') {    SoundLibrary_PlaySound(2); }
 }
 
 
