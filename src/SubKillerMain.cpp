@@ -23,8 +23,6 @@
 #include <wx/notebook.h>
 
 
-#include "sound.h"
-
 // include OpenGL
 #ifdef __WXMAC__
 #include "OpenGL/glu.h"
@@ -202,6 +200,8 @@ SubKillerFrame::SubKillerFrame(wxWindow* parent,wxWindowID id)
 
     Show(); // This apparently initializes the OpenGL COntext
     GLCanvas1->SetCurrent();
+
+
     prepare3DViewport(getWidth()/2,0,getWidth(), getHeight());
 
 
@@ -216,6 +216,7 @@ SubKillerFrame::SubKillerFrame(wxWindow* parent,wxWindowID id)
 
      if (!init_textures)
       {
+       InitGameEngine();
 
        if (!LoadTexture((char *) "textures/airplane.png",&airplane) ) { fprintf(stderr,"Could not load airplane.png..!\n"); }
        if (!LoadTexture((char *) "textures/boat.png",&boat) ) { fprintf(stderr,"Could not load boat.png..!\n"); }
@@ -228,24 +229,24 @@ SubKillerFrame::SubKillerFrame(wxWindow* parent,wxWindowID id)
        /* OpenAL Initialization >>>>>>>>>>>>>>>>> */
        char base_directory[256]={0}; strcpy(base_directory,"sounds");
        char filename[256]={0};
-       StartSoundLibrary();
+
 
        sprintf(filename,"%s/start.wav",base_directory);
-       AddSoundBufferForLoad((char *)filename); //LOADED_PICTURE
+       LoadSound((char *)filename); //LOADED_PICTURE
 
        sprintf(filename,"%s/sonar.wav",base_directory);
-       AddSoundBufferForLoad((char *)filename); //LOADED_PICTURE
+       LoadSound((char *)filename); //LOADED_PICTURE
 
        sprintf(filename,"%s/seadrop.wav",base_directory);
-       AddSoundBufferForLoad((char *)filename); //SLIDESHOW_START
+       LoadSound((char *)filename); //SLIDESHOW_START
 
        sprintf(filename,"%s/explosion.wav",base_directory);
-       AddSoundBufferForLoad((char *)filename); //SLIDESHOW_STOP
-
-       LoadSoundBuffers();
+       LoadSound((char *)filename); //SLIDESHOW_STOP
 
 
-       SoundLibrary_PlaySound(0);
+       StartGameEngine();
+
+       PlaySound(0);
       /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
 
        AddObject(320,60,96,30,&boat.gl_rgb_texture);
@@ -284,8 +285,8 @@ void SubKillerFrame::keyReleased(wxKeyEvent& event)
    int key=event.GetKeyCode();
    if (key==WXK_LEFT)  { x-=2; } else
    if (key==WXK_RIGHT) { x+=2; } else
-   if (key=='1') {    SoundLibrary_PlaySound(2); } else
-   if (key=='3') {    SoundLibrary_PlaySound(2); }
+   if (key=='1') {    PlaySound(2); } else
+   if (key=='3') {    PlaySound(2); }
 }
 
 

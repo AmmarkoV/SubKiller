@@ -4,14 +4,16 @@ echo "Making SubKiller.."
 Optimizations="-s -O3 -fexpensive-optimizations"
 CPU="-mfpmath=sse -mtune=core2 -msse -msse2 -msse3"
  
-LIBRARIES="-lglut -lGL -lGLU -lXxf86vm -lopenal -lalut"
+LIBRARIES="-lm -lalut -lopenal -lGL -lGLU -lglut -lXxf86vm Simple2DGameEngine/libSimple2DGameEngine.a"
 
 cd src
- 
-g++ $Optimizations SubKillerApp.cpp SubKillerMain.cpp wxGLLoadTextures.cpp sound.cpp $LIBRARIES `wx-config --libs --gl-libs` `wx-config --cxxflags` -L. -o bin/Debug/SubKiller
   
+cd Simple2DGameEngine
+./make
 cd ..
 
+g++ $Optimizations $CPU SubKillerApp.cpp SubKillerMain.cpp wxGLLoadTextures.cpp -L. $LIBRARIES `wx-config --libs --gl-libs` `wx-config --cxxflags`  -o bin/Debug/SubKiller
+  
+cd ..
 echo "Done.."
-
 exit 0

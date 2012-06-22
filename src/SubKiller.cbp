@@ -33,22 +33,21 @@
 		<Compiler>
 			<Add option="-Wall" />
 			<Add option="`wx-config --cflags`" />
+			<Add option="-fpic" />
 		</Compiler>
 		<Linker>
 			<Add option="`wx-config --libs --gl-libs`" />
 			<Add option="-lGL" />
 			<Add option="-lGLU" />
 			<Add option="-lglut" />
-			<Add library="openal" />
-			<Add library="alut" />
+			<Add option="-lalut" />
+			<Add option="-lopenal" />
 			<Add library="Simple2DGameEngine/libSimple2DGameEngine.a" />
 		</Linker>
 		<Unit filename="SubKillerApp.cpp" />
 		<Unit filename="SubKillerApp.h" />
 		<Unit filename="SubKillerMain.cpp" />
 		<Unit filename="SubKillerMain.h" />
-		<Unit filename="sound.cpp" />
-		<Unit filename="sound.h" />
 		<Unit filename="wxGLLoadTextures.cpp" />
 		<Unit filename="wxGLLoadTextures.h" />
 		<Unit filename="wxsmith/SubKillerframe.wxs" />

@@ -34,10 +34,27 @@
 				</Linker>
 			</Target>
 		</Build>
+		<Linker>
+			<Add option="-lGL" />
+			<Add option="-lGLU" />
+			<Add option="-lglut" />
+			<Add option="-lalut" />
+			<Add option="-lopenal" />
+			<Add library="openal" />
+			<Add library="alut" />
+		</Linker>
 		<Unit filename="Simple2DGameEngine.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="sound.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="sound.h" />
+		<Unit filename="visuals.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="visuals.h" />
 		<Extensions>
 			<envvars />
 			<code_completion />

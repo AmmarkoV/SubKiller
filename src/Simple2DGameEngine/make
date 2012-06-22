@@ -1,0 +1,37 @@
+#!/bin/bash
+echo "Simple2DGameEngine  / Provides libSimple2DGameEngine.a  / Author : Ammar Qammaz"    
+
+if [ -e libSimple2DGameEngine.a ]
+then
+  rm libSimple2DGameEngine.a
+fi 
+
+  
+Optimizations="-O3 -fexpensive-optimizations -s"
+CPU="-mfpmath=sse -mtune=core2 -msse -msse2 -msse3"
+ 
+OpenALStuff="`pkg-config --cflags freealut` `pkg-config --libs freealut`"
+
+g++ -fPIC $OpenALStuff  $Optimizations $CPU -c main.cpp -o main.o 
+g++ -fPIC $OpenALStuff $Optimizations $CPU -c sound.cpp -o sound.o
+g++ -fPIC $Optimizations $CPU -c visuals.cpp -o visuals.o  
+
+FILESTOLINK="main.o sound.o visuals.o"
+
+ar rcs libSimple2DGameEngine.a $FILESTOLINK
+rm $FILESTOLINK
+
+
+cp libSimple2DGameEngine.a ../libSimple2DGameEngine.a
+ 
+
+
+if [ -e libSimple2DGameEngine.a ]
+then
+  echo "Library Compilation Success.."
+else
+  echo "Library Compilation Failure.."
+fi
+ 
+
+exit 0

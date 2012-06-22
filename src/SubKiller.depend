@@ -1587,7 +1587,7 @@
 1340143968 /home/ammar/Documents/Programming/SubKiller/src/wxGLLoadTextures.h
 	<GL/glu.h>
 
-1340324248 source:/home/ammar/Documents/Programming/SubKiller/src/SubKillerMain.cpp
+1340326410 source:/home/ammar/Documents/Programming/SubKiller/src/SubKillerMain.cpp
 	"SubKillerMain.h"
 	<wx/msgdlg.h>
 	"Simple2DGameEngine/Simple2DGameEngine.h"
@@ -1599,7 +1599,6 @@
 	<wx/wx.h>
 	<wx/glcanvas.h>
 	<wx/notebook.h>
-	"sound.h"
 	"OpenGL/glu.h"
 	"OpenGL/gl.h"
 	<GL/glu.h>
@@ -1607,7 +1606,7 @@
 	<wx/string.h>
 	<wx/intl.h>
 
-1340324896 /home/ammar/Documents/Programming/SubKiller/src/Simple2DGameEngine/Simple2DGameEngine.h
+1340325959 /home/ammar/Documents/Programming/SubKiller/src/Simple2DGameEngine/Simple2DGameEngine.h
 	<GL/glu.h>
 	<GL/gl.h>
 
