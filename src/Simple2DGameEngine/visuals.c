@@ -76,8 +76,8 @@ glEnable ( GL_TEXTURE_2D );
       DrawSprite
       ( obj[cur_obj].pos_x,
         obj[cur_obj].pos_y,
-        obj[cur_obj].pos_x+obj[cur_obj].size_x,
-        obj[cur_obj].pos_y+obj[cur_obj].size_y,
+        obj[cur_obj].size_x,
+        obj[cur_obj].size_y,
         &obj[cur_obj].texture,
         0
       );

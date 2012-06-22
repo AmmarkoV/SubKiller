@@ -42,7 +42,7 @@
 			<Add option="-lglut" />
 			<Add option="-lalut" />
 			<Add option="-lopenal" />
-			<Add library="Simple2DGameEngine/libSimple2DGameEngineCPP.a" />
+			<Add library="Simple2DGameEngine/libSimple2DGameEngine.a" />
 		</Linker>
 		<Unit filename="SubKillerApp.cpp" />
 		<Unit filename="SubKillerApp.h" />

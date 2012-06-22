@@ -358,11 +358,8 @@ glEnable ( GL_TEXTURE_2D );
       DrawSprite(320,30,64,16,&airplane,0);;
 
 
-      DrawSprite(GetObjectX(0),GetObjectY(0),96,30,&boat,0);
       DrawSprite(60,90,4,6,&barrel,0);
 
-      //glColor4f(1.0,1.0,1.0,0.4);
-      //DrawSprite(50,110,64,16,&sub,0);
       DrawSprite(50,110,44,20,&sub,0);
       DrawSprite(90,300,44,20,&sub,0);
       DrawSprite(120,140,64,32,&sub,0);
