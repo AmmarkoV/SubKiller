@@ -43,5 +43,9 @@
 			<widths>-1</widths>
 			<styles>wxSB_NORMAL</styles>
 		</object>
+		<object class="wxTimer" name="ID_TIMER1" variable="TickTimer" member="yes">
+			<interval>100</interval>
+			<handler function="OnTickTimerTrigger" entry="EVT_TIMER" />
+		</object>
 	</object>
 </wxsmith>

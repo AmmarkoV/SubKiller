@@ -16,6 +16,7 @@
 #include <wx/statusbr.h>
 #include <wx/frame.h>
 #include <wx/stattext.h>
+#include <wx/timer.h>
 //*)
 
 #include <wx/stopwatch.h>
@@ -52,6 +53,7 @@ class SubKillerFrame: public wxFrame
         //(*Handlers(SubKillerFrame)
         void OnQuit(wxCommandEvent& event);
         void OnAbout(wxCommandEvent& event);
+        void OnTickTimerTrigger(wxTimerEvent& event);
         //*)
 
         //(*Identifiers(SubKillerFrame)
@@ -61,6 +63,7 @@ class SubKillerFrame: public wxFrame
         static const long idMenuQuit;
         static const long idMenuAbout;
         static const long ID_STATUSBAR1;
+        static const long ID_TIMER1;
         //*)
 
         //(*Declarations(SubKillerFrame)
@@ -68,6 +71,7 @@ class SubKillerFrame: public wxFrame
         wxStaticText* StaticText1;
         wxGLCanvas* GLCanvas1;
         wxStaticText* StaticText2;
+        wxTimer TickTimer;
         //*)
 
         DECLARE_EVENT_TABLE()

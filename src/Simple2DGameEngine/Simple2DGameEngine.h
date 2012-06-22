@@ -17,6 +17,7 @@ struct GameObject
   float acc_x,acc_y; // meters per second^2
   float natural_dec_x,natural_dec_y; // meters per second^2
   float velocity_x,velocity_y; // meters per second
+  float term_velocity_x,term_velocity_y; // meters per second
 
   float weight; //kg
 

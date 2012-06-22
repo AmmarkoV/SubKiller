@@ -14,9 +14,10 @@ OpenALStuff="`pkg-config --cflags freealut` `pkg-config --libs freealut`"
 
 gcc -fPIC $OpenALStuff  $Optimizations $CPU -c main.c -o main.o 
 gcc -fPIC $OpenALStuff $Optimizations $CPU -c sound.c -o sound.o
+gcc -fPIC $OpenALStuff $Optimizations $CPU -c physics.c -o physics.o
 gcc -fPIC $Optimizations $CPU -c visuals.c -o visuals.o  
 
-FILESTOLINK="main.o sound.o visuals.o"
+FILESTOLINK="main.o sound.o physics.o visuals.o"
 
 ar rcs libSimple2DGameEngine.a $FILESTOLINK
 rm $FILESTOLINK

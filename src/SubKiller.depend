@@ -1560,12 +1560,13 @@
 1340062259 /home/ammar/Documents/Programming/SubKiller/src/SubKillerApp.h
 	<wx/app.h>
 
-1340321738 /home/ammar/Documents/Programming/SubKiller/src/SubKillerMain.h
+1340394055 /home/ammar/Documents/Programming/SubKiller/src/SubKillerMain.h
 	<wx/glcanvas.h>
 	<wx/menu.h>
 	<wx/statusbr.h>
 	<wx/frame.h>
 	<wx/stattext.h>
+	<wx/timer.h>
 	<wx/stopwatch.h>
 
 1340283098 source:/home/ammar/Documents/Programming/SubKiller/src/sound.cpp

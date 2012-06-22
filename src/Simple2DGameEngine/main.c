@@ -1,7 +1,11 @@
 #include "Simple2DGameEngine.h"
 #include "sound.h"
 #include "visuals.h"
+#include "physics.h"
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 int TotalObjects=100;
 int LoadedObjects=0;
@@ -20,6 +24,15 @@ int AddObject(float pos_x,float pos_y,float size_x,float size_y,GLuint * texture
   obj[cur_obj].size_y=size_y;
   obj[cur_obj].texture=*texture;
 
+  obj[cur_obj].acc_x=0.0;
+  obj[cur_obj].acc_y=0.0;
+  obj[cur_obj].natural_dec_x=0.0;
+  obj[cur_obj].natural_dec_y=0.0;
+  obj[cur_obj].velocity_x=0.0;
+  obj[cur_obj].velocity_y=0.0;
+
+  obj[cur_obj].term_velocity_x=1.0;
+  obj[cur_obj].term_velocity_y=1.0;
 
   return cur_obj;
 }
@@ -67,38 +80,7 @@ void DrawGame()
 
 void RunGame(unsigned long msec_passed)
 {
-  unsigned int cur_obj=0;
-  for (cur_obj=0; cur_obj<LoadedObjects; cur_obj++)
-  {
-     obj[cur_obj].velocity_x = obj[cur_obj].acc_x*msec_passed/1000;
-     obj[cur_obj].velocity_y = obj[cur_obj].acc_y*msec_passed/1000;
-
-
-  if (obj[cur_obj].acc_x < 0 )
-   {
-     if (obj[cur_obj].acc_x>obj[cur_obj].natural_dec_x) { obj[cur_obj].acc_x-=obj[cur_obj].natural_dec_x; } else
-                                                        { obj[cur_obj].acc_x=0; }
-   } else
-    if (obj[cur_obj].acc_x > 0 )
-   {
-     if (obj[cur_obj].acc_x<(-1*obj[cur_obj].natural_dec_x)) { obj[cur_obj].acc_x+=obj[cur_obj].natural_dec_x; } else
-                                                             { obj[cur_obj].acc_x=0; }
-
-   }
-
-  if (obj[cur_obj].acc_y < 0 )
-   {
-     if (obj[cur_obj].acc_y>obj[cur_obj].natural_dec_y) { obj[cur_obj].acc_y-=obj[cur_obj].natural_dec_y; } else
-                                                        { obj[cur_obj].acc_y=0; }
-   } else
-    if (obj[cur_obj].acc_y > 0 )
-   {
-     if (obj[cur_obj].acc_y<(-1*obj[cur_obj].natural_dec_y)) { obj[cur_obj].acc_y+=obj[cur_obj].natural_dec_y; } else
-                                                             { obj[cur_obj].acc_y=0; }
-
-   }
-  }
-
+  RunPhysics(msec_passed);
 }
 
 

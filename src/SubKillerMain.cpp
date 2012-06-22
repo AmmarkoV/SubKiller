@@ -72,6 +72,7 @@ const long SubKillerFrame::ID_GLCANVAS1 = wxNewId();
 const long SubKillerFrame::idMenuQuit = wxNewId();
 const long SubKillerFrame::idMenuAbout = wxNewId();
 const long SubKillerFrame::ID_STATUSBAR1 = wxNewId();
+const long SubKillerFrame::ID_TIMER1 = wxNewId();
 //*)
 
 BEGIN_EVENT_TABLE(SubKillerFrame,wxFrame) //
@@ -191,9 +192,12 @@ SubKillerFrame::SubKillerFrame(wxWindow* parent,wxWindowID id)
     StatusBar1->SetFieldsCount(1,__wxStatusBarWidths_1);
     StatusBar1->SetStatusStyles(1,__wxStatusBarStyles_1);
     SetStatusBar(StatusBar1);
+    TickTimer.SetOwner(this, ID_TIMER1);
+    TickTimer.Start(100, false);
 
     Connect(idMenuQuit,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&SubKillerFrame::OnQuit);
     Connect(idMenuAbout,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&SubKillerFrame::OnAbout);
+    Connect(ID_TIMER1,wxEVT_TIMER,(wxObjectEventFunction)&SubKillerFrame::OnTickTimerTrigger);
     //*)
 
     sw.Start();
@@ -250,6 +254,7 @@ SubKillerFrame::SubKillerFrame(wxWindow* parent,wxWindowID id)
       /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
 
        AddObject(320,60,96,30,&boat.gl_rgb_texture);
+       SetNaturalDeccelerationObject(0,0.01,0.01);
       }
 
 
@@ -274,8 +279,8 @@ void SubKillerFrame::keyPressed(wxKeyEvent& event)
 {
    fprintf(stderr,".");
    int key=event.GetKeyCode();
-   if (key==WXK_LEFT) { AccelerateObject(0,-1.0,0.0); } else
-   if (key==WXK_RIGHT) { AccelerateObject(0,1.0,0.0); }
+   if (key==WXK_LEFT) { AccelerateObject(0,-0.2,0.0); } else
+   if (key==WXK_RIGHT) { AccelerateObject(0,0.2,0.0); }
 
 }
 void SubKillerFrame::keyReleased(wxKeyEvent& event)
@@ -283,8 +288,8 @@ void SubKillerFrame::keyReleased(wxKeyEvent& event)
 
    fprintf(stderr,"*");
    int key=event.GetKeyCode();
-   if (key==WXK_LEFT)  { AccelerateObject(0,-1.0,0.0); } else
-   if (key==WXK_RIGHT) { AccelerateObject(0,1.0,0.0); } else
+   if (key==WXK_LEFT)  { AccelerateObject(0,-0.2,0.0); } else
+   if (key==WXK_RIGHT) { AccelerateObject(0,0.2,0.0); } else
    if (key=='1') {    PlaySound(2); } else
    if (key=='3') {    PlaySound(2); }
 }
@@ -404,4 +409,9 @@ void SubKillerFrame::OnAbout(wxCommandEvent& event)
 {
     wxString msg = wxbuildinfo(long_f);
     wxMessageBox(msg, _("Welcome to..."));
+}
+
+void SubKillerFrame::OnTickTimerTrigger(wxTimerEvent& event)
+{
+     RunGame(sw.Time());
 }
