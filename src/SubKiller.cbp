@@ -36,13 +36,13 @@
 			<Add option="-fpic" />
 		</Compiler>
 		<Linker>
+			<Add option="Simple2DGameEngine/libSimple2DGameEngine.a" />
 			<Add option="`wx-config --libs --gl-libs`" />
 			<Add option="-lGL" />
 			<Add option="-lGLU" />
 			<Add option="-lglut" />
 			<Add option="-lalut" />
 			<Add option="-lopenal" />
-			<Add library="Simple2DGameEngine/libSimple2DGameEngine.a" />
 		</Linker>
 		<Unit filename="SubKillerApp.cpp" />
 		<Unit filename="SubKillerApp.h" />

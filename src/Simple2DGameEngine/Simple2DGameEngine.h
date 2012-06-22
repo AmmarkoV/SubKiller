@@ -15,6 +15,7 @@ struct GameObject
   float size_x,size_y;
 
   float acc_x,acc_y; // meters per second^2
+  float natural_dec_x,natural_dec_y; // meters per second^2
   float velocity_x,velocity_y; // meters per second
 
   float weight; //kg
@@ -38,6 +39,7 @@ int AddObject(float pos_x,float pos_y,float size_x,float size_y,GLuint * texture
 float GetObjectX(unsigned int cur_obj);
 float GetObjectY(unsigned int cur_obj);
 void AccelerateObject(unsigned int cur_obj,float acc_x,float acc_y);
+void SetNaturalDeccelerationObject(unsigned int cur_obj,float dec_x,float dec_y);
 
 
 void LoadSound(char * path);

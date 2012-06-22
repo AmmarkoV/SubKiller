@@ -42,6 +42,12 @@ void AccelerateObject(unsigned int cur_obj,float acc_x,float acc_y)
 
 }
 
+void SetNaturalDeccelerationObject(unsigned int cur_obj,float dec_x,float dec_y)
+{
+  obj[cur_obj].natural_dec_x=dec_x;
+  obj[cur_obj].natural_dec_y=dec_y;
+}
+
 void LoadSound(char * path)
 {
   AddSoundBufferForLoad(path);
@@ -61,8 +67,37 @@ void DrawGame()
 
 void RunGame(unsigned long msec_passed)
 {
+  unsigned int cur_obj=0;
+  for (cur_obj=0; cur_obj<LoadedObjects; cur_obj++)
+  {
+     obj[cur_obj].velocity_x = obj[cur_obj].acc_x*msec_passed/1000;
+     obj[cur_obj].velocity_y = obj[cur_obj].acc_y*msec_passed/1000;
 
 
+  if (obj[cur_obj].acc_x < 0 )
+   {
+     if (obj[cur_obj].acc_x>obj[cur_obj].natural_dec_x) { obj[cur_obj].acc_x-=obj[cur_obj].natural_dec_x; } else
+                                                        { obj[cur_obj].acc_x=0; }
+   } else
+    if (obj[cur_obj].acc_x > 0 )
+   {
+     if (obj[cur_obj].acc_x<(-1*obj[cur_obj].natural_dec_x)) { obj[cur_obj].acc_x+=obj[cur_obj].natural_dec_x; } else
+                                                             { obj[cur_obj].acc_x=0; }
+
+   }
+
+  if (obj[cur_obj].acc_y < 0 )
+   {
+     if (obj[cur_obj].acc_y>obj[cur_obj].natural_dec_y) { obj[cur_obj].acc_y-=obj[cur_obj].natural_dec_y; } else
+                                                        { obj[cur_obj].acc_y=0; }
+   } else
+    if (obj[cur_obj].acc_y > 0 )
+   {
+     if (obj[cur_obj].acc_y<(-1*obj[cur_obj].natural_dec_y)) { obj[cur_obj].acc_y+=obj[cur_obj].natural_dec_y; } else
+                                                             { obj[cur_obj].acc_y=0; }
+
+   }
+  }
 
 }
 
