@@ -1560,12 +1560,13 @@
 1340062259 /home/ammar/Documents/Programming/SubKiller/src/SubKillerApp.h
 	<wx/app.h>
 
-1340066719 /home/ammar/Documents/Programming/SubKiller/src/SubKillerMain.h
+1340321738 /home/ammar/Documents/Programming/SubKiller/src/SubKillerMain.h
 	<wx/glcanvas.h>
 	<wx/menu.h>
 	<wx/statusbr.h>
 	<wx/frame.h>
 	<wx/stattext.h>
+	<wx/stopwatch.h>
 
 1340283098 source:/home/ammar/Documents/Programming/SubKiller/src/sound.cpp
 	"sound.h"
@@ -1585,4 +1586,28 @@
 
 1340143968 /home/ammar/Documents/Programming/SubKiller/src/wxGLLoadTextures.h
 	<GL/glu.h>
+
+1340324248 source:/home/ammar/Documents/Programming/SubKiller/src/SubKillerMain.cpp
+	"SubKillerMain.h"
+	<wx/msgdlg.h>
+	"Simple2DGameEngine/Simple2DGameEngine.h"
+	"wxGLLoadTextures.h"
+	<iostream>
+	<string>
+	<cassert>
+	<cmath>
+	<wx/wx.h>
+	<wx/glcanvas.h>
+	<wx/notebook.h>
+	"sound.h"
+	"OpenGL/glu.h"
+	"OpenGL/gl.h"
+	<GL/glu.h>
+	<GL/gl.h>
+	<wx/string.h>
+	<wx/intl.h>
+
+1340324896 /home/ammar/Documents/Programming/SubKiller/src/Simple2DGameEngine/Simple2DGameEngine.h
+	<GL/glu.h>
+	<GL/gl.h>
 

@@ -10,6 +10,7 @@
 #include "SubKillerMain.h"
 #include <wx/msgdlg.h>
 
+#include "Simple2DGameEngine/Simple2DGameEngine.h"
 #include "wxGLLoadTextures.h"
 
 #include <iostream>
@@ -197,6 +198,8 @@ SubKillerFrame::SubKillerFrame(wxWindow* parent,wxWindowID id)
     Connect(idMenuAbout,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&SubKillerFrame::OnAbout);
     //*)
 
+    sw.Start();
+
     Show(); // This apparently initializes the OpenGL COntext
     GLCanvas1->SetCurrent();
     prepare3DViewport(getWidth()/2,0,getWidth(), getHeight());
@@ -245,7 +248,7 @@ SubKillerFrame::SubKillerFrame(wxWindow* parent,wxWindowID id)
        SoundLibrary_PlaySound(0);
       /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
 
-
+       AddObject(320,60,96,30,&boat.gl_rgb_texture);
       }
 
 
@@ -303,7 +306,6 @@ void DrawSprite(unsigned int x,unsigned int y,unsigned int size_x,unsigned int s
 void SubKillerFrame::draw()
 {
 
-
  GLCanvas1->SetCurrent();
 
 
@@ -351,10 +353,12 @@ glEnable ( GL_TEXTURE_2D );
       DrawSprite(0,426,640,54,&rock_bottom,1);
 
 
+     DrawGame();
+
       DrawSprite(320,30,64,16,&airplane,0);;
 
 
-      DrawSprite(x,60,96,30,&boat,0);
+      DrawSprite(GetObjectX(0),GetObjectY(0),96,30,&boat,0);
       DrawSprite(60,90,4,6,&barrel,0);
 
       //glColor4f(1.0,1.0,1.0,0.4);
@@ -373,14 +377,14 @@ glDisable ( GL_TEXTURE_2D );
 
 void SubKillerFrame::OnIdle(wxIdleEvent & event)
 {
+  RunGame(sw.Time());
 		draw();
 		event.RequestMore();
 }
 
 void SubKillerFrame::render(wxPaintEvent& evt)
 {
-
-
+  RunGame(sw.Time());
 		draw();
 //		event.RequestMore();
 }

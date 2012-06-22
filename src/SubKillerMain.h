@@ -18,13 +18,12 @@
 #include <wx/stattext.h>
 //*)
 
+#include <wx/stopwatch.h>
+
 class SubKillerFrame: public wxFrame
 {
     public:
-
-	    float c_;
-	    float rotate_;
-        float angle_x,angle_y,angle_z;
+        wxStopWatch sw;
 
         SubKillerFrame(wxWindow* parent,wxWindowID id = -1);
         virtual ~SubKillerFrame();

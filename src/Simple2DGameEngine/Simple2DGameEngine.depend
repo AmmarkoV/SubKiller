@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1340324839 source:/home/ammar/Documents/Programming/SubKiller/src/Simple2DGameEngine/main.c
+	"Simple2DGameEngine.h"
+
+1340324153 /home/ammar/Documents/Programming/SubKiller/src/Simple2DGameEngine/Simple2DGameEngine.h
+	<GL/glu.h>
+	<GL/gl.h>
+

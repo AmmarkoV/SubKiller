@@ -41,6 +41,7 @@
 			<Add option="-lglut" />
 			<Add library="openal" />
 			<Add library="alut" />
+			<Add library="Simple2DGameEngine/libSimple2DGameEngine.a" />
 		</Linker>
 		<Unit filename="SubKillerApp.cpp" />
 		<Unit filename="SubKillerApp.h" />
