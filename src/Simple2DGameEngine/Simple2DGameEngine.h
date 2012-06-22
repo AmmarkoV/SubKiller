@@ -5,6 +5,9 @@
 #include <GL/glu.h>
 #include <GL/gl.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 struct GameObject
 {
@@ -34,6 +37,7 @@ int AddObject(float pos_x,float pos_y,float size_x,float size_y,GLuint * texture
 
 float GetObjectX(unsigned int cur_obj);
 float GetObjectY(unsigned int cur_obj);
+void AccelerateObject(unsigned int cur_obj,float acc_x,float acc_y);
 
 
 void LoadSound(char * path);
@@ -46,6 +50,8 @@ void InitGameEngine();
 void StartGameEngine();
 
 
-
+#ifdef __cplusplus
+}
+#endif
 
 #endif // SIMPLE2DGAMEENGINE_H_INCLUDED

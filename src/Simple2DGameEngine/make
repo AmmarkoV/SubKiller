@@ -12,19 +12,16 @@ CPU="-mfpmath=sse -mtune=core2 -msse -msse2 -msse3"
  
 OpenALStuff="`pkg-config --cflags freealut` `pkg-config --libs freealut`"
 
-g++ -fPIC $OpenALStuff  $Optimizations $CPU -c main.cpp -o main.o 
-g++ -fPIC $OpenALStuff $Optimizations $CPU -c sound.cpp -o sound.o
-g++ -fPIC $Optimizations $CPU -c visuals.cpp -o visuals.o  
+gcc -fPIC $OpenALStuff  $Optimizations $CPU -c main.c -o main.o 
+gcc -fPIC $OpenALStuff $Optimizations $CPU -c sound.c -o sound.o
+gcc -fPIC $Optimizations $CPU -c visuals.c -o visuals.o  
 
 FILESTOLINK="main.o sound.o visuals.o"
 
 ar rcs libSimple2DGameEngine.a $FILESTOLINK
 rm $FILESTOLINK
-
-
-cp libSimple2DGameEngine.a ../libSimple2DGameEngine.a
  
-
+  
 
 if [ -e libSimple2DGameEngine.a ]
 then

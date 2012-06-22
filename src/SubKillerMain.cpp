@@ -274,8 +274,8 @@ void SubKillerFrame::keyPressed(wxKeyEvent& event)
 {
    fprintf(stderr,".");
    int key=event.GetKeyCode();
-   if (key==WXK_LEFT) { x-=2; } else
-   if (key==WXK_RIGHT) { x+=2; }
+   if (key==WXK_LEFT) { AccelerateObject(0,-1.0,0.0); } else
+   if (key==WXK_RIGHT) { AccelerateObject(0,1.0,0.0); }
 
 }
 void SubKillerFrame::keyReleased(wxKeyEvent& event)
@@ -283,8 +283,8 @@ void SubKillerFrame::keyReleased(wxKeyEvent& event)
 
    fprintf(stderr,"*");
    int key=event.GetKeyCode();
-   if (key==WXK_LEFT)  { x-=2; } else
-   if (key==WXK_RIGHT) { x+=2; } else
+   if (key==WXK_LEFT)  { AccelerateObject(0,-1.0,0.0); } else
+   if (key==WXK_RIGHT) { AccelerateObject(0,1.0,0.0); } else
    if (key=='1') {    PlaySound(2); } else
    if (key=='3') {    PlaySound(2); }
 }
@@ -354,7 +354,6 @@ glEnable ( GL_TEXTURE_2D );
       DrawSprite(0,426,640,54,&rock_bottom,1);
 
 
-     DrawGame();
 
       DrawSprite(320,30,64,16,&airplane,0);;
 
@@ -370,6 +369,10 @@ glEnable ( GL_TEXTURE_2D );
 
 glDisable(GL_BLEND);
 glDisable ( GL_TEXTURE_2D );
+
+
+     DrawGame();
+
 
 
   glPopMatrix();

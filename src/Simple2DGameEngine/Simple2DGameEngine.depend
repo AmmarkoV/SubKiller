@@ -1,28 +1,29 @@
 # depslib dependency file v1.0
-1340326018 source:/home/ammar/Documents/Programming/SubKiller/src/Simple2DGameEngine/main.c
+1340367654 source:/home/ammar/Documents/Programming/SubKiller/src/Simple2DGameEngine/main.c
 	"Simple2DGameEngine.h"
 	"sound.h"
+	"visuals.h"
 
-1340325959 /home/ammar/Documents/Programming/SubKiller/src/Simple2DGameEngine/Simple2DGameEngine.h
+1340367662 /home/ammar/Documents/Programming/SubKiller/src/Simple2DGameEngine/Simple2DGameEngine.h
 	<GL/glu.h>
 	<GL/gl.h>
 
-1327625347 /home/ammar/Documents/Programming/SubKiller/src/Simple2DGameEngine/sound.h
+1340332100 /home/ammar/Documents/Programming/SubKiller/src/Simple2DGameEngine/sound.h
 
-1340326125 source:/home/ammar/Documents/Programming/SubKiller/src/Simple2DGameEngine/sound.c
-	"sound.h"
+1340332100 source:/home/ammar/Documents/Programming/SubKiller/src/Simple2DGameEngine/sound.c
 	<stdlib.h>
 	<stdio.h>
 	<string.h>
 	<AL/al.h>
 	<AL/alc.h>
 	<AL/alut.h>
+	"sound.h"
 
-1340325108 source:/home/ammar/Documents/Programming/SubKiller/src/Simple2DGameEngine/visuals.c
+1340332100 source:/home/ammar/Documents/Programming/SubKiller/src/Simple2DGameEngine/visuals.c
 	"Simple2DGameEngine.h"
 	"visuals.h"
 
-1340324830 /home/ammar/Documents/Programming/SubKiller/src/Simple2DGameEngine/visuals.h
+1340332100 /home/ammar/Documents/Programming/SubKiller/src/Simple2DGameEngine/visuals.h
 	<GL/glu.h>
 	<GL/gl.h>
 
