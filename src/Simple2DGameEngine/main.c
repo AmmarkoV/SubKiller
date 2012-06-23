@@ -50,8 +50,8 @@ float GetObjectY(unsigned int cur_obj)
 
 void AccelerateObject(unsigned int cur_obj,float acc_x,float acc_y)
 {
-  obj[cur_obj].acc_x=acc_x;
-  obj[cur_obj].acc_y=acc_y;
+  obj[cur_obj].acc_x+=acc_x;
+  obj[cur_obj].acc_y+=acc_y;
 
 }
 
@@ -92,5 +92,6 @@ void InitGameEngine()
 void StartGameEngine()
 {
   LoadSoundBuffers();
+  StartPhysics();
 }
 

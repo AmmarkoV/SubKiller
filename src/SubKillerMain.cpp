@@ -96,6 +96,7 @@ unsigned int x=50;
 int init_textures=0;
 struct Picture airplane={0};
 struct Picture barrel={0};
+struct Picture bomb={0};
 struct Picture boat={0};
 struct Picture sub={0};
 struct Picture sky={0};
@@ -225,6 +226,7 @@ SubKillerFrame::SubKillerFrame(wxWindow* parent,wxWindowID id)
        if (!LoadTexture((char *) "textures/airplane.png",&airplane) ) { fprintf(stderr,"Could not load airplane.png..!\n"); }
        if (!LoadTexture((char *) "textures/boat.png",&boat) ) { fprintf(stderr,"Could not load boat.png..!\n"); }
        if (!LoadTexture((char *) "textures/barrel.png",&barrel) ) { fprintf(stderr,"Could not load barrel.png..!\n"); }
+       if (!LoadTexture((char *) "textures/bomb.png",&bomb) ) { fprintf(stderr,"Could not load bomb.png..!\n"); }
        if (!LoadTexture((char *) "textures/sub.png",&sub) ) { fprintf(stderr,"Could not load submarine.png..!\n"); }
        if (!LoadTexture((char *) "textures/sky.png",&sky) ) { fprintf(stderr,"Could not load sky.png..!\n"); }
        if (!LoadTexture((char *) "textures/rock_bottom.png",&rock_bottom) ) { fprintf(stderr,"Could not load rock_bottom.png..!\n"); }
@@ -254,7 +256,7 @@ SubKillerFrame::SubKillerFrame(wxWindow* parent,wxWindowID id)
       /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
 
        AddObject(320,60,96,30,&boat.gl_rgb_texture);
-       SetNaturalDeccelerationObject(0,0.01,0.01);
+       SetNaturalDeccelerationObject(0,51.001,51.001);
       }
 
 
@@ -279,8 +281,8 @@ void SubKillerFrame::keyPressed(wxKeyEvent& event)
 {
    fprintf(stderr,".");
    int key=event.GetKeyCode();
-   if (key==WXK_LEFT) { AccelerateObject(0,-0.2,0.0); } else
-   if (key==WXK_RIGHT) { AccelerateObject(0,0.2,0.0); }
+   if (key==WXK_LEFT) { AccelerateObject(0,-132,0.0); } else
+   if (key==WXK_RIGHT) { AccelerateObject(0,132,0.0); }
 
 }
 void SubKillerFrame::keyReleased(wxKeyEvent& event)
@@ -288,10 +290,20 @@ void SubKillerFrame::keyReleased(wxKeyEvent& event)
 
    fprintf(stderr,"*");
    int key=event.GetKeyCode();
-   if (key==WXK_LEFT)  { AccelerateObject(0,-0.2,0.0); } else
-   if (key==WXK_RIGHT) { AccelerateObject(0,0.2,0.0); } else
-   if (key=='1') {    PlaySound(2); } else
-   if (key=='3') {    PlaySound(2); }
+   if (key==WXK_LEFT)  { AccelerateObject(0,-132,0.0); } else
+   if (key==WXK_RIGHT) { AccelerateObject(0,132,0.0); } else
+   if (key=='1')
+    {
+      PlaySound(2);
+      unsigned int cur_obj = AddObject(GetObjectX(0),GetObjectY(0)+40,6,8,&barrel.gl_rgb_texture);
+      AccelerateObject(cur_obj,0.0,450);
+    } else
+   if (key=='3')
+    {
+      PlaySound(2);
+      unsigned int cur_obj = AddObject(GetObjectX(0)+60,GetObjectY(0)+40,6,8,&barrel.gl_rgb_texture);
+      AccelerateObject(cur_obj,0.0,450);
+    }
 }
 
 
