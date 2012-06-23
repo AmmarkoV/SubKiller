@@ -281,8 +281,8 @@ void SubKillerFrame::keyPressed(wxKeyEvent& event)
 {
    fprintf(stderr,".");
    int key=event.GetKeyCode();
-   if (key==WXK_LEFT) { AccelerateObject(0,-132,0.0); } else
-   if (key==WXK_RIGHT) { AccelerateObject(0,132,0.0); }
+   if (key==WXK_LEFT) { AccelerateObject(0,-232,0.0); } else
+   if (key==WXK_RIGHT) { AccelerateObject(0,232,0.0); }
 
 }
 void SubKillerFrame::keyReleased(wxKeyEvent& event)

@@ -32,6 +32,17 @@ void RunPhysics(unsigned long msec_passed)
      obj[cur_obj].velocity_x = obj[cur_obj].acc_x*tick/1000;
      obj[cur_obj].velocity_y = obj[cur_obj].acc_y*tick/1000;
 
+
+     if (obj[cur_obj].speed_limit)
+      {
+          if ( ( obj[cur_obj].velocity_x > 0 ) && ( obj[cur_obj].velocity_x > obj[cur_obj].term_velocity_x ) ) { obj[cur_obj].velocity_x=obj[cur_obj].term_velocity_x; } else
+          if ( ( obj[cur_obj].velocity_x < 0 ) && ( obj[cur_obj].velocity_x < (-1)*obj[cur_obj].term_velocity_x ) ) { obj[cur_obj].velocity_x=(-1)*obj[cur_obj].term_velocity_x; }
+
+          if ( ( obj[cur_obj].velocity_y > 0 ) && ( obj[cur_obj].velocity_y > obj[cur_obj].term_velocity_y ) ) { obj[cur_obj].velocity_y=obj[cur_obj].term_velocity_y; } else
+          if ( ( obj[cur_obj].velocity_y < 0 ) && ( obj[cur_obj].velocity_y < (-1)*obj[cur_obj].term_velocity_y ) ) { obj[cur_obj].velocity_y=(-1)*obj[cur_obj].term_velocity_y; }
+
+      }
+
      obj[cur_obj].pos_x+= obj[cur_obj].velocity_x*tick/1000;
      obj[cur_obj].pos_y+= obj[cur_obj].velocity_y*tick/1000;
 

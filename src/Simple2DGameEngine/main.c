@@ -31,6 +31,8 @@ int AddObject(float pos_x,float pos_y,float size_x,float size_y,GLuint * texture
   obj[cur_obj].velocity_x=0.0;
   obj[cur_obj].velocity_y=0.0;
 
+  obj[cur_obj].speed_limit=0;
+
   obj[cur_obj].term_velocity_x=1.0;
   obj[cur_obj].term_velocity_y=1.0;
 

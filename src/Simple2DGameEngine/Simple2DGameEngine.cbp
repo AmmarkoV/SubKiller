@@ -47,6 +47,10 @@
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="physics.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="physics.h" />
 		<Unit filename="sound.c">
 			<Option compilerVar="CC" />
 		</Unit>
