@@ -4,7 +4,7 @@ echo "Making SubKiller.."
 Optimizations="-s -O3 -fexpensive-optimizations"
 CPU=" " #"-mfpmath=sse -mtune=core2 -msse -msse2 -msse3"
  
-LIBRARIES="-lm -lalut -lopenal -lGL -lGLU -lglut -lXxf86vm"
+LIBRARIES="-lm -lalut -lopenal -lGL -lGLU -lGLEW -lglut -lXxf86vm"
 
 cd src
   

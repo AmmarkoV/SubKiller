@@ -1,6 +1,7 @@
 #ifndef WXGLLOADTEXTURES_H_INCLUDED
 #define WXGLLOADTEXTURES_H_INCLUDED
 
+//#include <GL/glew.h>
 #include <GL/glu.h>
 
 

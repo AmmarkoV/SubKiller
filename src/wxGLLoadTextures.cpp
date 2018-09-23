@@ -70,7 +70,7 @@ int printoutOGLErr(unsigned int errnum)
      case GL_STACK_OVERFLOW    : fprintf(stderr,"This command would cause a stack overflow. The offending command is ignored and has no other side effect than to set the error flag. \n");  break;
      case GL_STACK_UNDERFLOW   : fprintf(stderr,"This command would cause a stack underflow. The offending command is ignored and has no other side effect than to set the error flag. \n");  break;
      case GL_OUT_OF_MEMORY     : fprintf(stderr,"There is not enough memory left to execute the command. The state of the GL is undefined, except for the state of the error flags, after this error is recorded. \n");  break;
-     case GL_TABLE_TOO_LARGE   : fprintf(stderr,"The specified table exceeds the implementation's maximum supported table size.  The offending command is ignored and has no other side effect than to set the error flag. \n");  break;
+//     case GL_TABLE_TOO_LARGE   : fprintf(stderr,"The specified table exceeds the implementation's maximum supported table size.  The offending command is ignored and has no other side effect than to set the error flag. \n");  break;
   };
   return 1;
 }
@@ -100,9 +100,10 @@ int make_texture(struct Picture * picturedata,int enable_mipmaping)
 
   unsigned int error_num=0;
   fprintf(stderr,"Making texture .. ");
+  /*
   if (  enable_mipmaping == 1  )
    {
-      /* LOADING TEXTURE --WITH-- MIPMAPING */
+      // LOADING TEXTURE --WITH-- MIPMAPING
       glPixelStorei(GL_UNPACK_ALIGNMENT,1);
       glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
       glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
@@ -112,7 +113,7 @@ int make_texture(struct Picture * picturedata,int enable_mipmaping)
       glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB8, picturedata->width , picturedata->height, 0, depth_flag, GL_UNSIGNED_BYTE, (const GLvoid *) rgba_data);
       error_num=glGetError();
       if  ( error_num!=0 ) { printoutOGLErr(error_num); fprintf(stderr,"Creating texture %ux%u:%u ( initial %ux%u )\n",picturedata->width,picturedata->height,depth_flag,picturedata->initial_width,picturedata->initial_height); return 0; }
-   } else
+   } else*/
    {
       /* LOADING TEXTURE --WITHOUT-- MIPMAPING - IT IS LOADED RAW*/
       glPixelStorei(GL_UNPACK_ALIGNMENT,1);
