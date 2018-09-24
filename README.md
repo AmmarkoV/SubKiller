@@ -1,4 +1,4 @@
-![SubKiller](https://raw.githubusercontent.com/AmmarkoV/SubKiller/tree/master//doc/logo.png)
+![SubKiller](https://raw.githubusercontent.com/AmmarkoV/SubKiller/master/doc/logo.png)
 
 A SinkSub clone OpenGL / OpenAL / wxWidgets just for fun project!!
 To test a simple 2D OpenGL texture engine..
