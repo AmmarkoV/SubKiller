@@ -1,6 +1,8 @@
 project( SubKiller ) 
 cmake_minimum_required( VERSION 2.8.7 )
 
+set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/../cmake/modules ${CMAKE_MODULE_PATH})
+
 OPTION (ENABLE_OPTIMIZATIONS OFF) 
 
 add_subdirectory (src/Simple2DGameEngine)
