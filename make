@@ -1,6 +1,9 @@
 #!/bin/bash
 echo "Making SubKiller.."
 
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+cd "$DIR"
+
 Optimizations="-s -O3 -fexpensive-optimizations"
 CPU=" " #"-mfpmath=sse -mtune=core2 -msse -msse2 -msse3"
  

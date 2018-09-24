@@ -271,7 +271,14 @@ void SubKillerFrame::resized(wxSizeEvent& evt)
     Refresh();
 }
 
-void SubKillerFrame::mouseMoved(wxMouseEvent& event) { fprintf(stderr,"-"); }
+void SubKillerFrame::mouseMoved(wxMouseEvent& event)
+{
+  fprintf(stderr,"-");
+  int x=event.GetX();
+  int y=event.GetY();
+  fprintf(stderr,"Mouse(%u,%u)\n",x,y);
+
+}
 void SubKillerFrame::mouseDown(wxMouseEvent& event) {}
 void SubKillerFrame::mouseWheelMoved(wxMouseEvent& event) {}
 void SubKillerFrame::mouseReleased(wxMouseEvent& event) {}
@@ -283,28 +290,28 @@ void SubKillerFrame::keyPressed(wxKeyEvent& event)
    fprintf(stderr,".");
    int key=event.GetKeyCode();
    if (key==WXK_LEFT) { AccelerateObject(0,-232,0.0); } else
-   if (key==WXK_RIGHT) { AccelerateObject(0,232,0.0); }
-
-}
-void SubKillerFrame::keyReleased(wxKeyEvent& event)
-{
-
-   fprintf(stderr,"*");
-   int key=event.GetKeyCode();
-   if (key==WXK_LEFT)  { AccelerateObject(0,-132,0.0); } else
-   if (key==WXK_RIGHT) { AccelerateObject(0,132,0.0); } else
-   if (key=='1')
+   if (key==WXK_RIGHT) { AccelerateObject(0,232,0.0); } else
+   if ((key=='1') || (key=='q'))
     {
       PlaySound(2);
       unsigned int cur_obj = AddObject(GetObjectX(0),GetObjectY(0)+40,6,8,&barrel.gl_rgb_texture);
       AccelerateObject(cur_obj,0.0,450);
     } else
-   if (key=='3')
+   if ((key=='3') || (key=='e'))
     {
       PlaySound(2);
       unsigned int cur_obj = AddObject(GetObjectX(0)+60,GetObjectY(0)+40,6,8,&barrel.gl_rgb_texture);
       AccelerateObject(cur_obj,0.0,450);
     }
+
+}
+void SubKillerFrame::keyReleased(wxKeyEvent& event)
+{
+   fprintf(stderr,"*");
+   int key=event.GetKeyCode();
+   if (key==WXK_LEFT)  { AccelerateObject(0,-132,0.0); } else
+   if (key==WXK_RIGHT) { AccelerateObject(0,132,0.0); }
+
 }
 
 
@@ -337,16 +344,16 @@ void SubKillerFrame::draw()
 		glLoadIdentity();
       glPushMatrix();
 
-       glEnable(GL_NORMALIZE);
-       glShadeModel(GL_SMOOTH);
-       glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
-       glHint(GL_POINT_SMOOTH_HINT, GL_NICEST);
-       glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
-       glHint(GL_POLYGON_SMOOTH_HINT, GL_NICEST);
+       //glEnable(GL_NORMALIZE);
+       //glShadeModel(GL_SMOOTH);
+       //glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
+       //glHint(GL_POINT_SMOOTH_HINT, GL_NICEST);
+       //glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
+       //glHint(GL_POLYGON_SMOOTH_HINT, GL_NICEST);
        glEnable(GL_COLOR_MATERIAL);
 
-       glEnable(GL_LINE_SMOOTH);
-       glEnable (GL_POLYGON_SMOOTH);
+       //glEnable(GL_LINE_SMOOTH);
+       //glEnable (GL_POLYGON_SMOOTH);
        glEnable(GL_ALPHA_TEST);
        glAlphaFunc(GL_GREATER, 0.1);
        glEnable(GL_BLEND);
