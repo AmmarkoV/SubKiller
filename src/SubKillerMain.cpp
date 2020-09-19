@@ -179,11 +179,11 @@ SubKillerFrame::SubKillerFrame(wxWindow* parent,wxWindowID id)
     	WX_GL_DEPTH_SIZE,      16,
     	WX_GL_STENCIL_SIZE,    0,
     	0, 0 };
-    #if wxCHECK_VERSION(3,0,0)
-    	GLCanvas1 = new wxGLCanvas(this, ID_GLCANVAS1, GLCanvasAttributes_1, wxPoint(16,40), wxSize(640,480), 0, _T("ID_GLCANVAS1"));
-    #else
+    //#if wxCHECK_VERSION(3,0,0)
+    //	GLCanvas1 = new wxGLCanvas(this, ID_GLCANVAS1, GLCanvasAttributes_1, wxPoint(16,40), wxSize(640,480), 0, _T("ID_GLCANVAS1"));
+    //#else
     	GLCanvas1 = new wxGLCanvas(this, ID_GLCANVAS1, wxPoint(16,40), wxSize(640,480), 0, _T("ID_GLCANVAS1"), GLCanvasAttributes_1);
-    #endif // wxCHECK_VERSION
+    //#endif // wxCHECK_VERSION
     ButtonQuit = new wxButton(this, ID_BUTTON1, _("Quit"), wxPoint(736,520), wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON1"));
     MenuBar1 = new wxMenuBar();
     Menu1 = new wxMenu();
@@ -242,20 +242,20 @@ SubKillerFrame::SubKillerFrame(wxWindow* parent,wxWindowID id)
         init_textures=1;
 
        /* OpenAL Initialization >>>>>>>>>>>>>>>>> */
-       char base_directory[256]={0}; strcpy(base_directory,"sounds");
-       char filename[256]={0};
+       char base_directory[512]={0}; strcpy(base_directory,"sounds");
+       char filename[1024]={0};
 
 
-       sprintf(filename,"%s/start.wav",base_directory);
+       snprintf(filename,1024,"%s/start.wav",base_directory);
        LoadSound((char *)filename); //LOADED_PICTURE
 
-       sprintf(filename,"%s/sonar.wav",base_directory);
+       snprintf(filename,1024,"%s/sonar.wav",base_directory);
        LoadSound((char *)filename); //LOADED_PICTURE
 
-       sprintf(filename,"%s/seadrop.wav",base_directory);
+       snprintf(filename,1024,"%s/seadrop.wav",base_directory);
        LoadSound((char *)filename); //SLIDESHOW_START
 
-       sprintf(filename,"%s/explosion.wav",base_directory);
+       snprintf(filename,1024,"%s/explosion.wav",base_directory);
        LoadSound((char *)filename); //SLIDESHOW_STOP
 
 
@@ -320,13 +320,13 @@ void SubKillerFrame::keyPressed(wxKeyEvent& event)
     {
       PlaySound(2);
       unsigned int cur_obj = AddObject(GetObjectX(0),GetObjectY(0)+40,6,8,&barrel.gl_rgb_texture);
-      AccelerateObject(cur_obj,0.0,450);
+      AccelerateObject(cur_obj,0.0,650);
     } else
    if ((key=='3') || (key=='e'))
     {
       PlaySound(2);
       unsigned int cur_obj = AddObject(GetObjectX(0)+60,GetObjectY(0)+40,6,8,&barrel.gl_rgb_texture);
-      AccelerateObject(cur_obj,0.0,450);
+      AccelerateObject(cur_obj,0.0,650);
     }
 
 }
@@ -445,6 +445,10 @@ SubKillerFrame::~SubKillerFrame()
     //*)
 }
 
+void SubKillerFrame::OnButtonQuitClick(wxCommandEvent& event)
+{
+    Close();
+}
 void SubKillerFrame::OnQuit(wxCommandEvent& event)
 {
     Close();
