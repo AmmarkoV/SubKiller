@@ -4,7 +4,7 @@
 		<title>Sub-Killer!</title>
 		<size>860,565</size>
 		<object class="wxStaticText" name="ID_STATICTEXT1" variable="StaticText1" member="yes">
-			<label>Label</label>
+			<label>Sub</label>
 			<pos>24,16</pos>
 		</object>
 		<object class="wxStaticText" name="ID_STATICTEXT2" variable="StaticText2" member="yes">
@@ -17,6 +17,11 @@
 			<mDepthSize>16</mDepthSize>
 			<pos>16,40</pos>
 			<size>640,480</size>
+		</object>
+		<object class="wxButton" name="ID_BUTTON1" variable="ButtonQuit" member="yes">
+			<label>Quit</label>
+			<pos>736,520</pos>
+			<handler function="OnButtonQuitClick" entry="EVT_BUTTON" />
 		</object>
 		<object class="wxMenuBar" variable="MenuBar1" member="no">
 			<object class="wxMenu" variable="Menu1" member="no">

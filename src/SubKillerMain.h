@@ -11,11 +11,12 @@
 #define SUBKILLERMAIN_H
 
 //(*Headers(SubKillerFrame)
+#include <wx/button.h>
+#include <wx/frame.h>
 #include <wx/glcanvas.h>
 #include <wx/menu.h>
-#include <wx/statusbr.h>
-#include <wx/frame.h>
 #include <wx/stattext.h>
+#include <wx/statusbr.h>
 #include <wx/timer.h>
 //*)
 
@@ -54,12 +55,14 @@ class SubKillerFrame: public wxFrame
         void OnQuit(wxCommandEvent& event);
         void OnAbout(wxCommandEvent& event);
         void OnTickTimerTrigger(wxTimerEvent& event);
+        void OnButtonQuitClick(wxCommandEvent& event);
         //*)
 
         //(*Identifiers(SubKillerFrame)
         static const long ID_STATICTEXT1;
         static const long ID_STATICTEXT2;
         static const long ID_GLCANVAS1;
+        static const long ID_BUTTON1;
         static const long idMenuQuit;
         static const long idMenuAbout;
         static const long ID_STATUSBAR1;
@@ -67,10 +70,11 @@ class SubKillerFrame: public wxFrame
         //*)
 
         //(*Declarations(SubKillerFrame)
-        wxStatusBar* StatusBar1;
-        wxStaticText* StaticText1;
+        wxButton* ButtonQuit;
         wxGLCanvas* GLCanvas1;
+        wxStaticText* StaticText1;
         wxStaticText* StaticText2;
+        wxStatusBar* StatusBar1;
         wxTimer TickTimer;
         //*)
 

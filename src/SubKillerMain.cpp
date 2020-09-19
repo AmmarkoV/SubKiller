@@ -36,8 +36,8 @@
 
 
 //(*InternalHeaders(SubKillerFrame)
-#include <wx/string.h>
 #include <wx/intl.h>
+#include <wx/string.h>
 //*)
 
 //helper functions
@@ -70,6 +70,7 @@ wxString wxbuildinfo(wxbuildinfoformat format)
 const long SubKillerFrame::ID_STATICTEXT1 = wxNewId();
 const long SubKillerFrame::ID_STATICTEXT2 = wxNewId();
 const long SubKillerFrame::ID_GLCANVAS1 = wxNewId();
+const long SubKillerFrame::ID_BUTTON1 = wxNewId();
 const long SubKillerFrame::idMenuQuit = wxNewId();
 const long SubKillerFrame::idMenuAbout = wxNewId();
 const long SubKillerFrame::ID_STATUSBAR1 = wxNewId();
@@ -84,6 +85,7 @@ BEGIN_EVENT_TABLE(SubKillerFrame,wxFrame) //
     EVT_LEFT_DOWN(SubKillerFrame::mouseDown)
     EVT_LEFT_UP(SubKillerFrame::mouseReleased)
     EVT_RIGHT_DOWN(SubKillerFrame::rightClick)
+    EVT_RIGHT_UP(SubKillerFrame::rightClick)
     EVT_LEAVE_WINDOW(SubKillerFrame::mouseLeftWindow)
     EVT_SIZE(SubKillerFrame::resized)
     EVT_CHAR(SubKillerFrame::keyPressed)
@@ -161,15 +163,15 @@ void SubKillerFrame::prepare2DViewport(int topleft_x, int topleft_y, int bottomr
 SubKillerFrame::SubKillerFrame(wxWindow* parent,wxWindowID id)
 {
     //(*Initialize(SubKillerFrame)
-    wxMenuItem* MenuItem2;
-    wxMenuItem* MenuItem1;
     wxMenu* Menu1;
-    wxMenuBar* MenuBar1;
     wxMenu* Menu2;
+    wxMenuBar* MenuBar1;
+    wxMenuItem* MenuItem1;
+    wxMenuItem* MenuItem2;
 
     Create(parent, id, _("Sub-Killer!"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE, _T("id"));
     SetClientSize(wxSize(860,565));
-    StaticText1 = new wxStaticText(this, ID_STATICTEXT1, _("Label"), wxPoint(24,16), wxDefaultSize, 0, _T("ID_STATICTEXT1"));
+    StaticText1 = new wxStaticText(this, ID_STATICTEXT1, _("Sub"), wxPoint(24,16), wxDefaultSize, 0, _T("ID_STATICTEXT1"));
     StaticText2 = new wxStaticText(this, ID_STATICTEXT2, _("Label"), wxPoint(80,16), wxDefaultSize, 0, _T("ID_STATICTEXT2"));
     int GLCanvasAttributes_1[] = {
     	WX_GL_RGBA,
@@ -177,7 +179,12 @@ SubKillerFrame::SubKillerFrame(wxWindow* parent,wxWindowID id)
     	WX_GL_DEPTH_SIZE,      16,
     	WX_GL_STENCIL_SIZE,    0,
     	0, 0 };
-    GLCanvas1 = new wxGLCanvas(this, ID_GLCANVAS1, wxPoint(16,40), wxSize(640,480), 0, _T("ID_GLCANVAS1"), GLCanvasAttributes_1);
+    #if wxCHECK_VERSION(3,0,0)
+    	GLCanvas1 = new wxGLCanvas(this, ID_GLCANVAS1, GLCanvasAttributes_1, wxPoint(16,40), wxSize(640,480), 0, _T("ID_GLCANVAS1"));
+    #else
+    	GLCanvas1 = new wxGLCanvas(this, ID_GLCANVAS1, wxPoint(16,40), wxSize(640,480), 0, _T("ID_GLCANVAS1"), GLCanvasAttributes_1);
+    #endif // wxCHECK_VERSION
+    ButtonQuit = new wxButton(this, ID_BUTTON1, _("Quit"), wxPoint(736,520), wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON1"));
     MenuBar1 = new wxMenuBar();
     Menu1 = new wxMenu();
     MenuItem1 = new wxMenuItem(Menu1, idMenuQuit, _("Quit\tAlt-F4"), _("Quit the application"), wxITEM_NORMAL);
@@ -197,6 +204,7 @@ SubKillerFrame::SubKillerFrame(wxWindow* parent,wxWindowID id)
     TickTimer.SetOwner(this, ID_TIMER1);
     TickTimer.Start(100, false);
 
+    Connect(ID_BUTTON1,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&SubKillerFrame::OnButtonQuitClick);
     Connect(idMenuQuit,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&SubKillerFrame::OnQuit);
     Connect(idMenuAbout,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&SubKillerFrame::OnAbout);
     Connect(ID_TIMER1,wxEVT_TIMER,(wxObjectEventFunction)&SubKillerFrame::OnTickTimerTrigger);
@@ -276,13 +284,30 @@ void SubKillerFrame::mouseMoved(wxMouseEvent& event)
   fprintf(stderr,"-");
   int x=event.GetX();
   int y=event.GetY();
-  fprintf(stderr,"Mouse(%u,%u)\n",x,y);
-
+  fprintf(stderr,"MouseMoved(%u,%u)\n",x,y);
 }
+
+
+void SubKillerFrame::mouseReleased(wxMouseEvent& event)
+{
+  fprintf(stderr,"-");
+  int x=event.GetX();
+  int y=event.GetY();
+  fprintf(stderr,"LeftMouseClick(%u,%u)\n",x,y);
+}
+
+void SubKillerFrame::rightClick(wxMouseEvent& event)
+{
+  fprintf(stderr,"-");
+  int x=event.GetX();
+  int y=event.GetY();
+  fprintf(stderr,"RightMouseClick(%u,%u)\n",x,y);
+}
+
+
+
 void SubKillerFrame::mouseDown(wxMouseEvent& event) {}
 void SubKillerFrame::mouseWheelMoved(wxMouseEvent& event) {}
-void SubKillerFrame::mouseReleased(wxMouseEvent& event) {}
-void SubKillerFrame::rightClick(wxMouseEvent& event) {}
 void SubKillerFrame::mouseLeftWindow(wxMouseEvent& event) {}
 
 void SubKillerFrame::keyPressed(wxKeyEvent& event)

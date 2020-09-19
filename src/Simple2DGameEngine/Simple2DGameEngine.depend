@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1340396898 source:/home/ammar/Documents/Programming/SubKiller/src/Simple2DGameEngine/main.c
+1340411648 source:/home/ammar/Documents/Programming/SubKiller/src/Simple2DGameEngine/main.c
 	"Simple2DGameEngine.h"
 	"sound.h"
 	"visuals.h"
@@ -8,7 +8,7 @@
 	<stdlib.h>
 	<string.h>
 
-1340394619 /home/ammar/Documents/Programming/SubKiller/src/Simple2DGameEngine/Simple2DGameEngine.h
+1340410958 /home/ammar/Documents/Programming/SubKiller/src/Simple2DGameEngine/Simple2DGameEngine.h
 	<GL/glu.h>
 	<GL/gl.h>
 
@@ -31,7 +31,7 @@
 	<GL/glu.h>
 	<GL/gl.h>
 
-1340405516 /home/ammar/Documents/Programming/SubKiller/src/Simple2DGameEngine/physics.h
+1340406888 /home/ammar/Documents/Programming/SubKiller/src/Simple2DGameEngine/physics.h
 
 1340404710 source:/home/ammar/Documents/Programming/SubKiller/src/Simple2DGameEngine/ChipmunkPhysics/chipmunk.c
 	<stdio.h>
@@ -110,4 +110,11 @@
 1337952006 /home/ammar/Documents/Programming/SubKiller/src/Simple2DGameEngine/ChipmunkPhysics/cpSpace.h
 
 1337952006 /home/ammar/Documents/Programming/SubKiller/src/Simple2DGameEngine/ChipmunkPhysics/chipmunk_ffi.h
+
+1340411617 source:/home/ammar/Documents/Programming/SubKiller/src/Simple2DGameEngine/physics.c
+	"Simple2DGameEngine.h"
+	"physics.h"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
 
