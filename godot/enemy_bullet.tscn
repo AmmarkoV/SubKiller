@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://bb1wwl16a6v1e"]
+
+[ext_resource type="Script" path="res://enemy_bullet.gd" id="1_mw06b"]
+[ext_resource type="Texture2D" uid="uid://dsa70mnrl8rr4" path="res://textures/bomb.png" id="1_sa6pa"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1abgl"]
+size = Vector2(4, 4)
+
+[node name="enemyBullet" type="RigidBody2D"]
+gravity_scale = -1.0
+script = ExtResource("1_mw06b")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_1abgl")
+
+[node name="Bomb" type="Sprite2D" parent="."]
+position = Vector2(0, 4.76837e-07)
+scale = Vector2(1.33333, 1.33333)
+texture = ExtResource("1_sa6pa")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

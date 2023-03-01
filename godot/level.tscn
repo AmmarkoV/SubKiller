@@ -1,0 +1,37 @@
+[gd_scene load_steps=8 format=3 uid="uid://b51cb1qag8sue"]
+
+[ext_resource type="Script" path="res://level.gd" id="1_q0e17"]
+[ext_resource type="PackedScene" uid="uid://dtkkhuq3jsh6c" path="res://sky.tscn" id="1_qvx8r"]
+[ext_resource type="PackedScene" uid="uid://dm4ssv46ul1ch" path="res://rock_bottom.tscn" id="2_2ephc"]
+[ext_resource type="PackedScene" uid="uid://bolfuqq8g3hko" path="res://ocean.tscn" id="4_04i8i"]
+[ext_resource type="PackedScene" uid="uid://dy0odyrswq1dh" path="res://surface.tscn" id="6_5mpmk"]
+[ext_resource type="PackedScene" uid="uid://d1kocgclqdbpa" path="res://bottom.tscn" id="9_oppln"]
+[ext_resource type="PackedScene" uid="uid://b4vpx2iqegg71" path="res://border.tscn" id="10_y5dy4"]
+
+[node name="Level" type="Node2D"]
+script = ExtResource("1_q0e17")
+
+[node name="sky" parent="." instance=ExtResource("1_qvx8r")]
+position = Vector2(573, 76)
+scale = Vector2(2.3, 2.3)
+
+[node name="rockBottom" parent="." instance=ExtResource("2_2ephc")]
+position = Vector2(569, 573)
+scale = Vector2(2.3, 2.3)
+
+[node name="Ocean" parent="." instance=ExtResource("4_04i8i")]
+z_index = -1
+position = Vector2(-3, 142)
+scale = Vector2(29.084, 12.613)
+
+[node name="surface" parent="." instance=ExtResource("6_5mpmk")]
+position = Vector2(-12, 147)
+
+[node name="bottom" parent="." instance=ExtResource("9_oppln")]
+position = Vector2(9, 638)
+
+[node name="Border" parent="." instance=ExtResource("10_y5dy4")]
+position = Vector2(-7, 1)
+
+[node name="Border2" parent="." instance=ExtResource("10_y5dy4")]
+position = Vector2(1167, -1)

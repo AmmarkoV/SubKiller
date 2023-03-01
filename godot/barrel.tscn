@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://h0lrfs4visc"]
+
+[ext_resource type="Texture2D" uid="uid://bnsxdj6rrm1ee" path="res://textures/barrel.png" id="1_ac77v"]
+[ext_resource type="Script" path="res://barrel.gd" id="1_oblee"]
+[ext_resource type="AudioStream" uid="uid://b7kq4vik5v7c5" path="res://sounds/seadrop.wav" id="3_03ka7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s5dt5"]
+size = Vector2(6, 8)
+
+[node name="barrel" type="RigidBody2D"]
+contact_monitor = true
+script = ExtResource("1_oblee")
+
+[node name="Barrel" type="Sprite2D" parent="."]
+texture = ExtResource("1_ac77v")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_s5dt5")
+
+[node name="barrelDrop" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_03ka7")
+autoplay = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

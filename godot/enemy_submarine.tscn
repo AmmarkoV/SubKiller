@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://copiy1r4nafn3"]
+
+[ext_resource type="Script" path="res://enemy_submarine.gd" id="1_fu1jf"]
+[ext_resource type="Texture2D" uid="uid://eihyp5kjgla" path="res://textures/sub.png" id="1_ivqfp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gqp4w"]
+size = Vector2(53, 10)
+
+[node name="enemySubmarine" type="RigidBody2D"]
+z_index = 1
+gravity_scale = 0.0
+script = ExtResource("1_fu1jf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, -6)
+shape = SubResource("RectangleShape2D_gqp4w")
+
+[node name="Sub" type="Sprite2D" parent="."]
+position = Vector2(1.75, -5)
+scale = Vector2(0.972727, 1)
+texture = ExtResource("1_ivqfp")
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

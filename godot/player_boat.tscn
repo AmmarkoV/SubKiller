@@ -1,0 +1,25 @@
+[gd_scene load_steps=6 format=3 uid="uid://78d18miri4vm"]
+
+[ext_resource type="Script" path="res://CollisionShape2D.gd" id="1_1pd2y"]
+[ext_resource type="Script" path="res://player_boat.gd" id="1_e3k68"]
+[ext_resource type="Texture2D" uid="uid://dxvjvwlhoimnh" path="res://textures/boat.png" id="1_y0mu0"]
+[ext_resource type="AudioStream" uid="uid://cxaio1of6ymvj" path="res://sounds/start.wav" id="4_kl3j3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p2lnq"]
+size = Vector2(87, 13)
+
+[node name="PlayerBoat" type="RigidBody2D"]
+script = ExtResource("1_e3k68")
+
+[node name="Boat" type="Sprite2D" parent="."]
+position = Vector2(0, -9)
+texture = ExtResource("1_y0mu0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, -8.5)
+shape = SubResource("RectangleShape2D_p2lnq")
+script = ExtResource("1_1pd2y")
+
+[node name="startSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_kl3j3")
+autoplay = true

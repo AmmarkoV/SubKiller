@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://ckunk3siyihfw"]
+
+[ext_resource type="Script" path="res://explosion.gd" id="1_iet0o"]
+[ext_resource type="AudioStream" uid="uid://bfrjar7ditwhv" path="res://sounds/explosion.wav" id="1_l016p"]
+[ext_resource type="Texture2D" uid="uid://bqt28c2l3j5wv" path="res://textures/explosion.png" id="2_1oge2"]
+
+[node name="explosion" type="Node2D"]
+script = ExtResource("1_iet0o")
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="Explosion" type="Sprite2D" parent="."]
+position = Vector2(2, 4)
+texture = ExtResource("2_1oge2")
+
+[node name="explosionSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("1_l016p")
+autoplay = true
+
+[connection signal="finished" from="explosionSound" to="." method="_on_audio_stream_player_finished"]
