@@ -3,6 +3,7 @@ extends RigidBody2D
 #Global Variables
 @onready var global = get_node("/root/Global")
 const newBombConstructor = preload("res://enemy_bullet.tscn")
+var level   = 0
 var timing  = 5.0
 var speed   = 0.0
 var enemyID = 0
@@ -21,6 +22,7 @@ func _ready():
 	self.contact_monitor = true
 	self.max_contacts_reported = 1
 	enemyID = global.enemies
+	level   = global.level
 	global.enemies+=1
 	#speed  = randf_range(20,100)
 	#timing = randf_range(1,5)
@@ -36,6 +38,10 @@ func _process(delta):
 	elif(speed < 0):
 		scale.x = scale.y * -1
 	
+	if (level!=global.level):
+		global.enemies-=1
+		queue_free()
+		
 	if (global.loadNewLevel):
 		global.enemies-=1
 		queue_free()

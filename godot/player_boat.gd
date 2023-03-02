@@ -5,16 +5,25 @@ extends RigidBody2D
 @onready var global = get_node("/root/Global")
 const newBarrelS    = preload("res://barrel.tscn") 
 
+var cooldown : int =0 
 var score : int = 0
 var speed : int = 100
-var vel : Vector2 = Vector2()
+var vel   : Vector2 = Vector2()
+
+
+func _on_timer_timeout():
+	cooldown =0 
+	pass # Replace with function body.
+
 
 func _input(event):
 	#if event is InputEventKey and event.scancode == KEY_S and not event.echo:
 	if Input.is_action_pressed("shoot"):
-		if (global.ammo>0):
+		if (global.ammo>0) and (cooldown==0):
 			global.ammo -= 1
 			print("SHOOT")
+			$cooldownTimer.start()
+			cooldown = 1
 			var newBarrel =newBarrelS.instantiate()
 			newBarrel.position = self.position + Vector2(0,2)
 			print(newBarrel.position)
@@ -39,3 +48,4 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
+

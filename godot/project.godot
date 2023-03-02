@@ -19,6 +19,10 @@ config/icon="res://icon.svg"
 
 Global="*res://global.tscn"
 
+[display]
+
+window/size/resizable=false
+
 [input]
 
 left={
@@ -41,3 +45,4 @@ shoot={
 
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+textures/vram_compression/import_etc2_astc=true

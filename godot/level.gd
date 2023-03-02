@@ -25,13 +25,21 @@ func startLevel(newLevel):
 #-------------------------------------
 		if (global.life==0):
 			createPlayer()
+			global.level = 0
 		#--------------------------------
 		if (global.level==0):
+				createSub(100,500,40,4.0)
+		#--------------------------------
+		elif (global.level==1):
+				createSub(30,300,20,5.0)
+				createSub(200,600,80,3.0)
+		#--------------------------------
+		elif (global.level==2):
 				createSub(30,300,20,5.0)
 				createSub(100,500,40,4.0)
 				createSub(200,600,80,3.0)
 		#--------------------------------
-		elif (global.level==1):
+		elif (global.level==3):
 				createSub(30,300,40,2.0)
 				createSub(400,200,60,-3.0)
 				createSub(100,500,60,3.0)

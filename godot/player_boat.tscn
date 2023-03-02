@@ -23,3 +23,8 @@ script = ExtResource("1_1pd2y")
 [node name="startSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_kl3j3")
 autoplay = true
+
+[node name="cooldownTimer" type="Timer" parent="."]
+wait_time = 0.4
+
+[connection signal="timeout" from="cooldownTimer" to="." method="_on_timer_timeout"]
