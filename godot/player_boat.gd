@@ -3,12 +3,10 @@ extends RigidBody2D
 
 #Global Variables
 @onready var global = get_node("/root/Global")
-const newBarrelS = preload("res://barrel.tscn") 
+const newBarrelS    = preload("res://barrel.tscn") 
 
-
-var score : int = 0 
-var speed : int = 100  
-#var ammo : int = 3 
+var score : int = 0
+var speed : int = 100
 var vel : Vector2 = Vector2()
 
 func _input(event):
@@ -32,9 +30,9 @@ func _physics_process(delta):
 		
 	set_axis_velocity(vel)
 
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	global.life+=1
 	global.ammo=3
 	pass # Replace with function body.
 

@@ -1,6 +1,8 @@
 extends Node2D
 
+var loadNewLevel = 0
 var enemies = 0
+var life    = 0
 var level   = 0
 var ammo    = 3
 

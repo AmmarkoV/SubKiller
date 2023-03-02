@@ -12,32 +12,27 @@ func _ready():
 func _process(delta):
 	pass
 
-func _on_body_entered(body): 
-	print("Contact with ",body.name)
-	if body.name == "enemySubmarine":
+func explosion():
 		var newExplosion = newExplosions.instantiate()
 		newExplosion.position = self.position
 		print("Explosion Of Enemy Submarine",newExplosion.position)
 		get_parent().add_child(newExplosion)
+
+func _on_body_entered(body): 
+	print("Contact with ",body.name)
+	if "enemySubmarine" in body.name:
+		explosion()
 		global.ammo+=1
 		global.enemies-=1
 		body.queue_free()
 		queue_free()
-		
-	if body.name == "enemyBullet":
-		var newExplosion = newExplosions.instantiate()
-		newExplosion.position = self.position
-		print("Explosion of Enemy Bullet",newExplosion.position)
-		get_parent().add_child(newExplosion)
+	if "enemyBullet" in body.name:
+		explosion()
 		global.ammo+=1
 		body.queue_free()
 		queue_free()
-		
 	if body.name == "bottom":
-		var newExplosion = newExplosions.instantiate()
-		newExplosion.position = self.position
-		print("Explosion after reaching bottom ",newExplosion.position)
-		get_parent().add_child(newExplosion)
+		explosion()
 		global.ammo+=1
 		queue_free()
 	pass # Replace with function body.

@@ -30,8 +30,8 @@ position = Vector2(-12, 147)
 [node name="bottom" parent="." instance=ExtResource("9_oppln")]
 position = Vector2(9, 638)
 
-[node name="Border" parent="." instance=ExtResource("10_y5dy4")]
+[node name="BorderLeft" parent="." instance=ExtResource("10_y5dy4")]
 position = Vector2(-7, 1)
 
-[node name="Border2" parent="." instance=ExtResource("10_y5dy4")]
+[node name="BorderRight" parent="." instance=ExtResource("10_y5dy4")]
 position = Vector2(1167, -1)
