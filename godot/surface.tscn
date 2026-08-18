@@ -6,6 +6,8 @@
 size = Vector2(1189, 1)
 
 [node name="surface" type="StaticBody2D"]
+collision_layer = 2
+collision_mask = 0
 script = ExtResource("1_sjd1p")
 
 [node name="ColorRect" type="ColorRect" parent="."]

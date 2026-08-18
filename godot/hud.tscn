@@ -1,0 +1,105 @@
+[gd_scene load_steps=9 format=3]
+
+[ext_resource type="Script" path="res://hud.gd" id="1_hud"]
+[ext_resource type="Texture2D" uid="uid://d4hgva2gt4lym" path="res://ui/btn_left.svg" id="2_left"]
+[ext_resource type="Texture2D" uid="uid://v15owvlp8ee5" path="res://ui/btn_left_p.svg" id="3_leftp"]
+[ext_resource type="Texture2D" uid="uid://dijwrdoimwmgt" path="res://ui/btn_right.svg" id="4_right"]
+[ext_resource type="Texture2D" uid="uid://bpyttadtyw5cv" path="res://ui/btn_right_p.svg" id="5_rightp"]
+[ext_resource type="Texture2D" uid="uid://dw84vm715kfbw" path="res://ui/btn_drop.svg" id="6_drop"]
+[ext_resource type="Texture2D" uid="uid://dhiflland7iwt" path="res://ui/btn_drop_p.svg" id="7_dropp"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_btn"]
+radius = 64.0
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource("1_hud")
+
+[node name="Top" type="MarginContainer" parent="."]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 60.0
+grow_horizontal = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 14
+theme_override_constants/margin_right = 24
+
+[node name="Bar" type="HBoxContainer" parent="Top"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 16
+
+[node name="Level" type="Label" parent="Top/Bar"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 30
+text = "Level"
+horizontal_alignment = 0
+
+[node name="Score" type="Label" parent="Top/Bar"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 30
+text = "Score"
+horizontal_alignment = 1
+
+[node name="Boats" type="Label" parent="Top/Bar"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 30
+text = "Boats"
+horizontal_alignment = 1
+
+[node name="Ammo" type="Label" parent="Top/Bar"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 30
+text = "Ammo"
+horizontal_alignment = 2
+
+[node name="Banner" type="Label" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 64
+text = "LEVEL 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TouchLeft" type="TouchScreenButton" parent="."]
+texture_normal = ExtResource("2_left")
+texture_pressed = ExtResource("3_leftp")
+shape = SubResource("CircleShape2D_btn")
+passby_press = true
+action = "left"
+
+[node name="TouchRight" type="TouchScreenButton" parent="."]
+texture_normal = ExtResource("4_right")
+texture_pressed = ExtResource("5_rightp")
+shape = SubResource("CircleShape2D_btn")
+passby_press = true
+action = "right"
+
+[node name="TouchDrop" type="TouchScreenButton" parent="."]
+texture_normal = ExtResource("6_drop")
+texture_pressed = ExtResource("7_dropp")
+shape = SubResource("CircleShape2D_btn")
+action = "shoot"

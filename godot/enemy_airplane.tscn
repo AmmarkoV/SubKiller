@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://enemy_airplane.gd" id="1_plane"]
+[ext_resource type="Texture2D" uid="uid://bv76sulpg0u2a" path="res://textures/airplane.png" id="2_plane"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_plane"]
+size = Vector2(54, 14)
+
+[node name="enemyAirplane" type="RigidBody2D"]
+z_index = 1
+collision_layer = 8
+collision_mask = 0
+gravity_scale = 0.0
+script = ExtResource("1_plane")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_plane")
+
+[node name="Plane" type="Sprite2D" parent="."]
+texture = ExtResource("2_plane")
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
