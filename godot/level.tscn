@@ -1,6 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://b51cb1qag8sue"]
+[gd_scene load_steps=12 format=3 uid="uid://b51cb1qag8sue"]
 
 [ext_resource type="Script" path="res://level.gd" id="1_q0e17"]
+[ext_resource type="Script" path="res://waves.gd" id="14_waves"]
 [ext_resource type="PackedScene" uid="uid://dtkkhuq3jsh6c" path="res://sky.tscn" id="1_qvx8r"]
 [ext_resource type="PackedScene" uid="uid://dm4ssv46ul1ch" path="res://rock_bottom.tscn" id="2_2ephc"]
 [ext_resource type="PackedScene" uid="uid://bolfuqq8g3hko" path="res://ocean.tscn" id="4_04i8i"]
@@ -24,6 +25,9 @@ color = Color(0.02, 0.96, 0.94, 1)
 
 [node name="Ocean" parent="." instance=ExtResource("4_04i8i")]
 z_index = -1
+
+[node name="Waves" type="Node2D" parent="."]
+script = ExtResource("14_waves")
 
 [node name="surface" parent="." instance=ExtResource("6_5mpmk")]
 

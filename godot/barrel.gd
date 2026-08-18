@@ -11,10 +11,20 @@ var refunds = true
 func _ready():
 	self.contact_monitor = true
 	self.max_contacts_reported = 2
+	if not refunds:
+		#escort rounds are lighter than the boat's own charges, and there are a
+		#lot of them, so they are quieter too
+		$Barrel.scale = Vector2(0.6,0.6)
+		$CollisionShape2D.shape = $CollisionShape2D.shape.duplicate()
+		$CollisionShape2D.shape.size = Vector2(4,5)
+		$barrelDrop.volume_db = -12.0
 
 func explosion():
 	var newExplosion = newExplosions.instantiate()
 	newExplosion.position = self.position
+	if not refunds:
+		newExplosion.volume = -14.0
+		newExplosion.size   = 0.55
 	get_parent().add_child(newExplosion)
 
 func spend():

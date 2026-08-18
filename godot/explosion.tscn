@@ -15,6 +15,5 @@ texture = ExtResource("2_1oge2")
 
 [node name="explosionSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("1_l016p")
-autoplay = true
 
 [connection signal="finished" from="explosionSound" to="." method="_on_audio_stream_player_finished"]

@@ -214,6 +214,8 @@ func layoutWorld():
 	#there is no sea bed in view when the sea is seen from the boat's own deck
 	$rockBottom.visible = not convoy
 	$bottom.visible     = not convoy
+	#the running foam only makes sense looking across the sea at the convoy
+	$Waves.visible      = convoy
 
 	$Ocean.position = Vector2(0,global.waterY)
 	$Ocean.scale    = Vector2.ONE
