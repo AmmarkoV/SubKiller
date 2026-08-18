@@ -94,7 +94,7 @@ func createEnemy(x,depth,speed,timing):
 func clearLevel():
 	for child in get_children():
 		if (child is EnemySubmarine) or (child is EnemyAirplane) or (child is EnemyShip) \
-		or (child is Barrel) or (child is EnemyBomb) or (child is Pickup):
+		or (child is Barrel) or (child is EnemyBomb) or (child is Pickup) or (child is Explosion):
 			child.queue_free()
 	global.enemies = 0
 
@@ -138,6 +138,7 @@ func startLevel(newLevel):
 
 func levelCleared():
 	$winSound.play()
+	global.saveBest()
 	$HUD.showBanner("LEVEL %d CLEARED" % (global.level+1), 2.0)
 	await get_tree().create_timer(2.0).timeout
 	startLevel(global.level+1)
@@ -147,7 +148,11 @@ func playerDied():
 	if (global.lives<=0):
 		clearLevel()
 		gameOver = true
-		$HUD.showBanner("GAME OVER\nSCORE %d\n\nTAP TO PLAY AGAIN" % global.score, 0.0)
+		global.saveBest()
+		var headline = "GAME OVER"
+		if (global.score>0) and (global.score>=global.best):
+			headline = "NEW HIGH SCORE"
+		$HUD.showBanner("%s\nSCORE %d    BEST %d\n\nTAP TO PLAY AGAIN" % [headline,global.score,global.best], 0.0)
 		return
 	$HUD.showBanner("%d BOATS LEFT" % global.lives, 1.5)
 	await get_tree().create_timer(1.5).timeout
@@ -242,6 +247,8 @@ func _ready():
 	startLevel(0)
 
 func _process(delta):
+	if (global.score > global.best):
+		global.best = global.score
 	if busy:
 		return
 	if not is_instance_valid(player):

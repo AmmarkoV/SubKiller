@@ -13,12 +13,14 @@ const MAX_ESCORTS    : int   = 2
 const MODE_SEA    : int = 0
 const MODE_AIR    : int = 1
 const MODE_CONVOY : int = 2
+const SAVE_PATH   : String = "user://subkiller.save"
 
 var enemies : int = 0
 var lives   : int = START_LIVES
 var level   : int = 0
 var ammo    : int = START_AMMO
 var score   : int = 0
+var best    : int = 0
 
 #the sea level moves between levels, and the boat switches between hunting
 #submarines below it, shooting at aircraft above it, and facing a convoy
@@ -34,6 +36,17 @@ var escorts  : int   = 0
 
 #one shot text for the HUD, so anything in the game can announce itself
 var message : String = ""
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	var saved = FileAccess.open(SAVE_PATH,FileAccess.READ)
+	if saved:
+		best = saved.get_32()
+
+func saveBest():
+	var saved = FileAccess.open(SAVE_PATH,FileAccess.WRITE)
+	if saved:
+		saved.store_32(best)
 
 func resetGame():
 	enemies  = 0

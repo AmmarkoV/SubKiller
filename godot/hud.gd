@@ -34,6 +34,7 @@ func _ready():
 func _process(delta):
 	$Top/Bar/Level.text = "LEVEL %d" % (global.level+1)
 	$Top/Bar/Score.text = "SCORE %d" % global.score
+	$Top/Bar/Best.text  = "BEST %d" % global.best
 	$Top/Bar/Boats.text = "BOATS %d" % max(global.lives,0)
 	#the same ammo is dropped on submarines and fired up at aircraft
 	if (shownMode!=global.firesUpward()):

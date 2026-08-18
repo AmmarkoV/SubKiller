@@ -39,16 +39,23 @@ func _ready():
 	$Timer.start()
 
 func _physics_process(delta):
-	var vp = get_viewport_rect().size
 	phase += delta
-	linear_velocity = Vector2(sin(phase*0.7)*30.0, speed)
 	var t = clamp((position.y-startY)/max(global.boatY-startY,1.0), 0.0, 1.0)
 	var s = lerp(FAR_SCALE,NEAR_SCALE,t)
 	$Ship.scale = Vector2(s,s)
 	$CollisionShape2D.shape.size = Vector2(86,14)*s
-	#a ship that gets past the boat turns around and comes back
-	if (position.y > vp.y+40):
-		position = Vector2(randf_range(vp.x*0.1,vp.x*0.9), startY)
+
+#A RigidBody2D can only be steered or teleported from here. Writing position
+#directly is undone by the physics server on the same frame, which left the ship
+#flickering on the spot instead of wrapping, and the level could never be won.
+func _integrate_forces(state):
+	var vp = get_viewport_rect().size
+	state.linear_velocity = Vector2(sin(phase*0.7)*30.0, speed)
+	#a ship that gets past the boat comes round again from the horizon
+	if (state.transform.origin.y > vp.y+40):
+		var wrapped = state.transform
+		wrapped.origin = Vector2(randf_range(vp.x*0.1,vp.x*0.9), startY)
+		state.transform = wrapped
 
 func destroy():
 	global.enemies -= 1
