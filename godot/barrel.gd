@@ -4,6 +4,9 @@ extends RigidBody2D
 const newExplosions = preload("res://explosion.tscn")
 @onready var global = get_node("/root/Global")
 
+#escorts carry their own ammunition, their rounds must not top up the boat
+var refunds = true
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	self.contact_monitor = true
@@ -15,7 +18,8 @@ func explosion():
 	get_parent().add_child(newExplosion)
 
 func spend():
-	global.ammo += 1
+	if refunds:
+		global.ammo = min(global.ammo+1, global.maxAmmo)
 	queue_free()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -25,9 +29,9 @@ func _process(delta):
 		spend()
 
 func _on_body_entered(body):
-	if (body is EnemySubmarine) or (body is EnemyAirplane):
+	if (body is EnemySubmarine) or (body is EnemyAirplane) or (body is EnemyShip):
 		#the further away from the boat, the harder the shot, the more it pays
-		global.score += 100 + 10*int(abs(body.position.y-global.waterY)/50)
+		global.score += 100 + 10*int(abs(body.position.y-global.boatY)/50)
 		body.destroy()
 	elif body is EnemyBomb:
 		global.score += 25

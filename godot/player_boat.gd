@@ -4,6 +4,7 @@ extends RigidBody2D
 #Global Variables
 @onready var global = get_node("/root/Global")
 const newBarrelS    = preload("res://barrel.tscn")
+const newEscortS    = preload("res://escort.tscn")
 const newExplosions = preload("res://explosion.tscn")
 
 var speed : float = 260.0
@@ -20,16 +21,31 @@ func dropBarrel():
 		return
 	global.ammo -= 1
 	cooldown = 1
+	$cooldownTimer.wait_time = global.fireRate
 	$cooldownTimer.start()
 	var newBarrel = newBarrelS.instantiate()
-	if global.airMode:
-		#same ammo, fired up at the aircraft instead of dropped on submarines
+	if global.firesUpward():
+		#same ammunition, fired up at the aircraft and the convoy
 		newBarrel.position = self.position + Vector2(0,-18)
 		newBarrel.gravity_scale = -1.4
 	else:
-		#spawn it just under the waterline so it sinks instead of resting on the surface
+		#dropped just under the waterline so it sinks instead of floating
 		newBarrel.position = self.position + Vector2(0,16)
 	get_parent().add_child(newBarrel)
+
+
+func escortCount():
+	var found = 0
+	for child in get_children():
+		if child is Escort:
+			found += 1
+	return found
+
+
+func addEscort():
+	var newEscort = newEscortS.instantiate()
+	newEscort.position = Vector2(-78 if escortCount()==0 else 78, 4)
+	add_child(newEscort)
 
 
 func die():
@@ -37,6 +53,13 @@ func die():
 	newExplosion.position = self.position
 	get_parent().add_child(newExplosion)
 	queue_free()
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	#escorts are picked up mid level, they ride along as children of the boat
+	while (escortCount() < global.escorts):
+		addEscort()
 
 
 func _physics_process(delta):
@@ -51,5 +74,5 @@ func _physics_process(delta):
 func _integrate_forces(state):
 	state.linear_velocity = Vector2(direction*speed,0.0)
 	var riding = state.transform
-	riding.origin.y = global.waterY - 2.0
+	riding.origin.y = global.boatY
 	state.transform = riding

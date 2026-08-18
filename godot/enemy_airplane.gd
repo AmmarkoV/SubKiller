@@ -4,6 +4,7 @@ extends RigidBody2D
 #Global Variables
 @onready var global = get_node("/root/Global")
 const newBombConstructor = preload("res://enemy_bullet.tscn")
+const newPickup = preload("res://pickup.tscn")
 const HALF_WIDTH = 32.0
 
 var level   = 0
@@ -43,4 +44,10 @@ func _physics_process(delta):
 
 func destroy():
 	global.enemies -= 1
+	#a downed aircraft often leaves a weapon crate behind
+	if (randf()<0.5):
+		var newDrop = newPickup.instantiate()
+		newDrop.kind = randi()%3
+		newDrop.position = position
+		get_parent().call_deferred("add_child",newDrop)
 	queue_free()

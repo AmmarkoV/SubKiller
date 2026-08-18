@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://enemy_ship.gd" id="1_ship"]
+[ext_resource type="Texture2D" uid="uid://dxvjvwlhoimnh" path="res://textures/boat.png" id="2_boat"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ship"]
+size = Vector2(86, 14)
+
+[node name="enemyShip" type="RigidBody2D"]
+z_index = 1
+collision_layer = 8
+collision_mask = 4
+gravity_scale = 0.0
+script = ExtResource("1_ship")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ship")
+
+[node name="Ship" type="Sprite2D" parent="."]
+modulate = Color(1, 0.58, 0.5, 1)
+position = Vector2(0, -6)
+texture = ExtResource("2_boat")
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

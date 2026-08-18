@@ -36,11 +36,15 @@ func _process(delta):
 	$Top/Bar/Score.text = "SCORE %d" % global.score
 	$Top/Bar/Boats.text = "BOATS %d" % max(global.lives,0)
 	#the same ammo is dropped on submarines and fired up at aircraft
-	if (shownMode!=global.airMode):
-		shownMode = global.airMode
+	if (shownMode!=global.firesUpward()):
+		shownMode = global.firesUpward()
 		$TouchDrop.texture_normal  = fireTexture if shownMode else dropTexture
 		$TouchDrop.texture_pressed = firePressed if shownMode else dropPressed
 	$Top/Bar/Ammo.text = "SHELLS %d" % global.ammo if shownMode else "BARRELS %d" % global.ammo
+	#anything in the game can announce itself through Global.message
+	if (global.message!=""):
+		showBanner(global.message,1.2)
+		global.message = ""
 	if (bannerTime>0.0):
 		bannerTime -= delta
 		if (bannerTime<=0.0):

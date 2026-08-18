@@ -5,6 +5,7 @@ extends Node2D
 const newPlayerConstructor = preload("res://player_boat.tscn")
 const newSubConstructor = preload("res://enemy_submarine.tscn")
 const newPlaneConstructor = preload("res://enemy_airplane.tscn")
+const newShipConstructor = preload("res://enemy_ship.tscn")
 
 #The world is laid out relative to the current screen size. The waterline moves
 #from level to level, everything else is measured against it.
@@ -13,24 +14,31 @@ const SKY_BAND   = 150.0
 const SUB_MARGIN = 60.0
 const AIR_MARGIN = 70.0
 const SKY_MARGIN = 60.0
+const BOAT_DRAFT = 4.0
+const CONVOY_BOAT_GAP = 110.0
 
 #One entry per level :
 #  water   = waterline, as a fraction of the screen height
-#  air     = aircraft raid instead of a submarine hunt
-#  enemies = [ horizontal position (0..1) , depth/altitude (0..1) , speed px/sec , seconds between shots ]
+#  mode    = 0 submarine hunt, 1 aircraft raid, 2 convoy coming over the horizon
+#  enemies = [ across (0..1) , depth/altitude (0..1) , speed px/sec , seconds between shots ]
 const LEVELS = [
-	{"water":0.23,"air":false,"enemies":[ [0.10,0.55, 45,4.5] ]},
-	{"water":0.23,"air":false,"enemies":[ [0.10,0.25, 40,5.0], [0.75,0.70, 70,4.0] ]},
-	{"water":0.30,"air":false,"enemies":[ [0.05,0.20, 55,4.5], [0.60,0.50,-45,4.0], [0.30,0.85, 80,3.5] ]},
-	{"water":0.62,"air":true, "enemies":[ [0.10,0.40,120,4.0], [0.80,0.70,-140,3.5] ]},
-	{"water":0.18,"air":false,"enemies":[ [0.15,0.30, 70,3.5], [0.85,0.60,-60,3.5], [0.45,0.90,100,3.0] ]},
-	{"water":0.35,"air":false,"enemies":[ [0.10,0.15, 90,3.0], [0.50,0.45,-80,3.0], [0.90,0.75, 70,2.5], [0.30,0.95,110,3.0] ]},
-	{"water":0.66,"air":true, "enemies":[ [0.05,0.25,160,3.0], [0.50,0.55,-150,3.0], [0.90,0.80,170,2.5] ]},
-	{"water":0.25,"air":false,"enemies":[ [0.20,0.35,-110,2.5], [0.70,0.35,110,2.5], [0.20,0.80,90,2.5], [0.70,0.80,-90,2.5] ]},
-	{"water":0.30,"air":false,"enemies":[ [0.05,0.20,130,2.2], [0.95,0.40,-130,2.2], [0.05,0.60,120,2.2], [0.95,0.85,-120,2.2] ]},
-	{"water":0.60,"air":true, "enemies":[ [0.10,0.20,180,2.5], [0.40,0.50,-170,2.5], [0.70,0.35,190,2.2], [0.95,0.75,-160,2.5] ]},
-	{"water":0.20,"air":false,"enemies":[ [0.10,0.25,140,2.0], [0.40,0.45,-120,2.0], [0.70,0.65,150,1.8], [0.25,0.85,-130,1.8], [0.90,0.95,110,2.0] ]},
+	{"water":0.23,"mode":0,"enemies":[ [0.10,0.55, 50,4.2] ]},
+	{"water":0.23,"mode":0,"enemies":[ [0.10,0.25, 45,4.5], [0.75,0.70, 80,3.6] ]},
+	{"water":0.30,"mode":0,"enemies":[ [0.05,0.20, 65,4.0], [0.60,0.50,-55,3.6], [0.30,0.85, 90,3.2] ]},
+	{"water":0.62,"mode":1,"enemies":[ [0.10,0.40,130,3.6], [0.80,0.70,-150,3.2] ]},
+	{"water":0.18,"mode":0,"enemies":[ [0.15,0.30, 80,3.2], [0.85,0.60,-70,3.2], [0.45,0.90,115,2.8] ]},
+	{"water":0.28,"mode":2,"enemies":[ [0.20,0.10, 55,3.2], [0.70,0.45, 65,3.0] ]},
+	{"water":0.35,"mode":0,"enemies":[ [0.10,0.15,100,2.8], [0.50,0.45,-90,2.8], [0.90,0.75, 80,2.4], [0.30,0.95,125,2.6] ]},
+	{"water":0.66,"mode":1,"enemies":[ [0.05,0.25,180,2.8], [0.50,0.55,-170,2.8], [0.90,0.80,190,2.4] ]},
+	{"water":0.25,"mode":0,"enemies":[ [0.20,0.35,-125,2.3], [0.70,0.35,125,2.3], [0.20,0.80,100,2.3], [0.70,0.80,-100,2.3] ]},
+	{"water":0.30,"mode":2,"enemies":[ [0.15,0.05, 65,2.8], [0.50,0.35, 75,2.6], [0.85,0.60, 60,2.8] ]},
+	{"water":0.30,"mode":0,"enemies":[ [0.05,0.20,145,2.0], [0.95,0.40,-145,2.0], [0.05,0.60,135,2.0], [0.95,0.85,-135,2.0] ]},
+	{"water":0.60,"mode":1,"enemies":[ [0.10,0.20,200,2.3], [0.40,0.50,-190,2.3], [0.70,0.35,210,2.0], [0.95,0.75,-180,2.3] ]},
+	{"water":0.20,"mode":0,"enemies":[ [0.10,0.25,155,1.8], [0.40,0.45,-135,1.8], [0.70,0.65,165,1.6], [0.25,0.85,-145,1.6], [0.90,0.95,125,1.8] ]},
 ]
+
+#past the handmade levels the modes keep cycling in this order
+const ENDLESS_MODES = [0,0,1,0,2]
 
 var waterFrac = 0.23
 var player = null
@@ -49,26 +57,34 @@ func levelData(newLevel):
 	var extra = newLevel - LEVELS.size() + 1
 	var rng = RandomNumberGenerator.new()
 	rng.seed = newLevel
-	var air  = (newLevel%3==2)
+	var mode = ENDLESS_MODES[newLevel%ENDLESS_MODES.size()]
 	var data = []
-	for i in min(4+extra,8):
-		var speed = rng.randf_range(90,min(90+20*extra,240))
-		if air:
+	for i in min(4+extra,9):
+		var speed = rng.randf_range(110,min(110+22*extra,270))
+		if (mode==global.MODE_AIR):
 			speed *= 1.4
-		if (rng.randi()%2==0):
+		elif (mode==global.MODE_CONVOY):
+			speed = rng.randf_range(55,min(55+6*extra,130))
+		if (mode!=global.MODE_CONVOY) and (rng.randi()%2==0):
 			speed = -speed
-		data.append([rng.randf_range(0.05,0.95), rng.randf_range(0.1,0.95),
-					 speed, max(1.2,2.0-0.05*extra)])
-	var water = 0.62 if air else rng.randf_range(0.18,0.35)
-	return {"water":water,"air":air,"enemies":data}
+		data.append([rng.randf_range(0.05,0.95), rng.randf_range(0.05,0.95),
+					 speed, max(1.1,1.9-0.05*extra)])
+	var water = 0.62 if mode==global.MODE_AIR else rng.randf_range(0.18,0.35)
+	return {"water":water,"mode":mode,"enemies":data}
 
 func createPlayer():
 	player = newPlayerConstructor.instantiate()
-	player.position = Vector2(get_viewport_rect().size.x*0.5, global.waterY-2)
+	player.position = Vector2(get_viewport_rect().size.x*0.5, global.boatY)
 	add_child(player)
 
 func createEnemy(x,depth,speed,timing):
-	var newEnemy = newPlaneConstructor.instantiate() if global.airMode else newSubConstructor.instantiate()
+	var newEnemy = null
+	if (global.mode==global.MODE_AIR):
+		newEnemy = newPlaneConstructor.instantiate()
+	elif (global.mode==global.MODE_CONVOY):
+		newEnemy = newShipConstructor.instantiate()
+	else:
+		newEnemy = newSubConstructor.instantiate()
 	newEnemy.position = Vector2(x,enemyY(depth))
 	newEnemy.depth    = depth
 	newEnemy.speed    = speed
@@ -77,23 +93,26 @@ func createEnemy(x,depth,speed,timing):
 
 func clearLevel():
 	for child in get_children():
-		if (child is EnemySubmarine) or (child is EnemyAirplane) or (child is Barrel) or (child is EnemyBomb):
+		if (child is EnemySubmarine) or (child is EnemyAirplane) or (child is EnemyShip) \
+		or (child is Barrel) or (child is EnemyBomb) or (child is Pickup):
 			child.queue_free()
 	global.enemies = 0
 
-#the animated switch between a submarine hunt and an aircraft raid
+#the animated switch between a submarine hunt, an aircraft raid and a convoy
 func changeSeaLevel(data):
 	var rising = (data["water"] < waterFrac)
-	if (abs(data["water"]-waterFrac)<0.01) and (data["air"]==global.airMode):
+	if (abs(data["water"]-waterFrac)<0.01) and (data["mode"]==global.mode):
 		return
 	$sonarSound.play()
-	if data["air"]:
+	if (data["mode"]==global.MODE_AIR):
 		$HUD.showBanner("AIRCRAFT INBOUND\nTHE SEA IS DRAINING", 0.0)
+	elif (data["mode"]==global.MODE_CONVOY):
+		$HUD.showBanner("CONVOY ON THE HORIZON\nHOLD THE LINE", 0.0)
 	elif rising:
 		$HUD.showBanner("THE SEA IS RISING\nSUBMARINES RETURNING", 0.0)
 	else:
 		$HUD.showBanner("THE SEA IS FALLING", 0.0)
-	global.airMode = data["air"]
+	global.mode = data["mode"]
 	var tween = create_tween()
 	tween.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	tween.tween_method(setSeaLevel, waterFrac, data["water"], 2.0)
@@ -109,7 +128,7 @@ func startLevel(newLevel):
 	clearLevel()
 	if not is_instance_valid(player):
 		createPlayer()
-	global.ammo = global.START_AMMO
+	global.ammo = global.maxAmmo
 	var data = levelData(newLevel)
 	await changeSeaLevel(data)
 	for enemy in data["enemies"]:
@@ -138,11 +157,14 @@ func playerDied():
 # SCREEN LAYOUT - called again every time the screen or the sea level changes
 #-------------------------------------------------------------------------
 func enemyY(depth):
-	#aircraft fly between the top of the screen and the waterline,
-	#submarines sit between the waterline and the sea bed
+	#aircraft fly between the top of the screen and the waterline, submarines
+	#sit between the waterline and the sea bed, and the convoy comes in from
+	#the horizon towards the boat in the foreground
 	var vp = get_viewport_rect().size
-	if global.airMode:
+	if (global.mode==global.MODE_AIR):
 		return SKY_MARGIN + depth*(global.waterY-AIR_MARGIN-SKY_MARGIN)
+	if (global.mode==global.MODE_CONVOY):
+		return global.waterY + depth*80.0
 	var top = global.waterY + SUB_MARGIN
 	return top + depth*((vp.y-SEABED_H-SUB_MARGIN)-top)
 
@@ -169,7 +191,11 @@ func stretchBorder(border,x):
 
 func layoutWorld():
 	var vp = get_viewport_rect().size
+	var convoy = (global.mode==global.MODE_CONVOY)
 	global.waterY = waterFrac*vp.y
+	#looking across the sea at the convoy, the boat is in the foreground,
+	#otherwise it sits in the water with a few pixels of hull under the surface
+	global.boatY = (vp.y-CONVOY_BOAT_GAP) if convoy else (global.waterY+BOAT_DRAFT)
 
 	$SkyBack.position = Vector2.ZERO
 	$SkyBack.size     = vp
@@ -180,6 +206,9 @@ func layoutWorld():
 	$sky.scale    = Vector2.ONE
 	$rockBottom.position = Vector2.ZERO
 	$rockBottom.scale    = Vector2.ONE
+	#there is no sea bed in view when the sea is seen from the boat's own deck
+	$rockBottom.visible = not convoy
+	$bottom.visible     = not convoy
 
 	$Ocean.position = Vector2(0,global.waterY)
 	$Ocean.scale    = Vector2.ONE
@@ -206,8 +235,8 @@ func layoutWorld():
 #-------------------------------------------------------------------------
 func _ready():
 	global.resetGame()
-	global.airMode = LEVELS[0]["air"]
-	waterFrac      = LEVELS[0]["water"]
+	global.mode = LEVELS[0]["mode"]
+	waterFrac   = LEVELS[0]["water"]
 	get_viewport().size_changed.connect(layoutWorld)
 	layoutWorld()
 	startLevel(0)
